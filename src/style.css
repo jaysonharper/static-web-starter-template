@@ -1,0 +1,11 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Small component styles to mimic the original look */
+@layer base {
+  html,
+  body {
+    @apply h-full m-0 font-sans bg-slate-50 text-slate-900;
+  }
+}

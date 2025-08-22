@@ -3,66 +3,156 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>SimpleTemplate</title>
+    <title>Law Offices of Harper & Cats</title>
+    <meta
+      name="description"
+      content="Professional legal services from experienced attorneys at Law Offices of Harper & Cats"
+    />
     <link rel="stylesheet" href="/src/style.css" />
   </head>
   <body>
-    <!-- Demo Alert -->
-    <flow-alert type="info" dismissible>
-      <strong>Welcome!</strong> This starter now includes Lit components with
-      Flowbite styling.
-    </flow-alert>
+    <!-- Navigation Bar -->
+    <flow-navbar></flow-navbar>
 
-    <div
-      id="app"
-      class="max-w-3xl mx-auto my-16 p-8 bg-white rounded-xl shadow-lg"
-    >
-      <h1 class="text-2xl font-semibold mb-2">Component Demo</h1>
-      <p class="text-slate-600 mb-6">
-        A minimal Vite + Lit + Flowbite starter.
-      </p>
-
-      <!-- Original button -->
-      <button
-        id="btn"
-        class="bg-sky-500 text-white px-4 py-2 rounded-md hover:bg-sky-600 mr-4 mb-4"
-      >
-        Original Button
-      </button>
-
-      <!-- Flow Button Components -->
-      <div class="space-y-4">
-        <div>
-          <h3 class="text-lg font-medium mb-2">Flow Buttons</h3>
-          <div class="flex flex-wrap gap-2">
-            <flow-button variant="primary">Primary</flow-button>
-            <flow-button variant="secondary">Secondary</flow-button>
-            <flow-button variant="success">Success</flow-button>
-            <flow-button variant="danger">Danger</flow-button>
-            <flow-button variant="warning">Warning</flow-button>
+    <!-- Main Content -->
+    <div id="app">
+      <!-- Hero Section -->
+      <section class="hero-section">
+        <div class="hero-content">
+          <h1 class="hero-title">Professional Legal Services</h1>
+          <p class="hero-subtitle">
+            Experienced attorneys providing comprehensive legal solutions for
+            individuals and businesses
+          </p>
+          <div class="hero-actions">
+            <flow-button variant="primary" size="lg">
+              <a href="tel:+15555555555" class="button-link">Call Now</a>
+            </flow-button>
+            <flow-button variant="secondary" size="lg">
+              <a href="#services" class="button-link">Our Services</a>
+            </flow-button>
           </div>
         </div>
+      </section>
 
-        <div>
-          <h3 class="text-lg font-medium mb-2">Button Sizes</h3>
-          <div class="flex flex-wrap items-center gap-2">
-            <flow-button size="xs">Extra Small</flow-button>
-            <flow-button size="sm">Small</flow-button>
-            <flow-button size="md">Medium</flow-button>
-            <flow-button size="lg">Large</flow-button>
-            <flow-button size="xl">Extra Large</flow-button>
+      <!-- Services Section -->
+      <section id="services" class="content-section">
+        <div class="section-container">
+          <h2 class="section-title">Professional Services</h2>
+          <div class="section-card">
+            <p class="section-description">
+              Our experienced legal team provides comprehensive legal services
+              tailored to meet your specific needs. From corporate law to
+              personal injury cases, we deliver professional representation with
+              a commitment to excellence.
+            </p>
+            <div class="service-highlights">
+              <div class="highlight-item">
+                <h3>Corporate Law</h3>
+                <p>Business formation, contracts, and compliance</p>
+              </div>
+              <div class="highlight-item">
+                <h3>Personal Injury</h3>
+                <p>Accident claims and compensation cases</p>
+              </div>
+              <div class="highlight-item">
+                <h3>Family Law</h3>
+                <p>Divorce, custody, and family legal matters</p>
+              </div>
+            </div>
           </div>
         </div>
+      </section>
 
-        <div>
-          <h3 class="text-lg font-medium mb-2">Button States</h3>
-          <div class="flex flex-wrap gap-2">
-            <flow-button disabled>Disabled</flow-button>
-            <flow-button loading>Loading</flow-button>
+      <!-- Attorneys Section -->
+      <section id="attorneys" class="content-section bg-alternate">
+        <div class="section-container">
+          <h2 class="section-title">Meet Our Attorneys</h2>
+          <div class="section-card">
+            <p class="section-description">
+              Our team of dedicated attorneys brings decades of combined
+              experience across multiple practice areas. We pride ourselves on
+              providing personalized attention and strategic legal counsel to
+              every client.
+            </p>
+            <div class="attorney-preview">
+              <div class="attorney-item">
+                <div class="attorney-placeholder"></div>
+                <h3>Senior Partners</h3>
+                <p>Leading experts in their respective fields</p>
+              </div>
+              <div class="attorney-item">
+                <div class="attorney-placeholder"></div>
+                <h3>Associate Attorneys</h3>
+                <p>Skilled practitioners with specialized expertise</p>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
+      </section>
+
+      <!-- Testimonials Section -->
+      <section id="testimonials" class="content-section">
+        <div class="section-container">
+          <h2 class="section-title">Testimonials</h2>
+          <div class="section-card">
+            <p class="section-description">
+              Our clients' success stories speak to our commitment to excellence
+              and dedication to achieving the best possible outcomes. Read what
+              our satisfied clients have to say about their experience with our
+              firm.
+            </p>
+            <div class="testimonial-preview">
+              <blockquote class="testimonial-item">
+                <p>
+                  "Outstanding legal representation with exceptional attention
+                  to detail. Highly recommended!"
+                </p>
+                <cite>— Client Testimonial</cite>
+              </blockquote>
+              <blockquote class="testimonial-item">
+                <p>
+                  "Professional, knowledgeable, and results-driven. Exceeded our
+                  expectations in every way."
+                </p>
+                <cite>— Client Testimonial</cite>
+              </blockquote>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Find Us Section -->
+      <section id="find-us" class="content-section bg-alternate">
+        <div class="section-container">
+          <h2 class="section-title">Find Us</h2>
+          <div class="section-card">
+            <p class="section-description">
+              Located in the heart of the city, our offices are easily
+              accessible and designed to provide a comfortable environment for
+              client consultations. Contact us today to schedule your
+              appointment.
+            </p>
+            <div class="contact-info">
+              <div class="contact-item">
+                <h3>Office Location</h3>
+                <p>
+                  123 Legal Street<br />Downtown District<br />City, State 12345
+                </p>
+              </div>
+              <div class="contact-item">
+                <h3>Contact Information</h3>
+                <p>
+                  Phone: (555) 555-5555<br />Email: info@harpercats.law<br />Hours:
+                  Mon-Fri 9AM-6PM
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
+
     <script type="module" src="/src/main.js"></script>
   </body>
 </html>

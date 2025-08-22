@@ -18,3 +18,6 @@ Other tools used:
 - ESLint (JavaScript linting)
 - PostCSS (advanced CSS processing)
 - Vitest (unit testing for Vite projects)
+- Storybook (UI component development and testing)
+- Flowbite (UI component library)
+- Lit (web component library)

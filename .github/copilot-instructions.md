@@ -1,17 +1,20 @@
-- [ ] Verify that the copilot-instructions.md file in the .github directory is created.
+This project is a simple, static, single-page web application.
+All navigation will be handled client-side, without full page reloads. Moving between different sections of the app will be fast and seamless, with a smooth transition effect.
 
-- [x] Clarify Project Requirements
+It will be a generic template starter for prototyping, learning, or kickstarting new web projects with a clean, customizable foundation.
 
-- [x] Scaffold the Project
+It will be built with a mobile-first approach, ensuring a seamless experience across devices.
 
-- [ ] Customize the Project
+Tech stack:
 
-- [ ] Install Required Extensions
+- HTML
+- Tailwind CSS (utility-first CSS framework)
+- Vanilla JavaScript
 
-- [ ] Compile the Project
+Other tools used:
 
-- [ ] Create and Run Task
-
-- [ ] Launch the Project
-
-- [ ] Ensure Documentation is Complete
+- Vite (build tool)
+- Prettier (code formatting)
+- ESLint (JavaScript linting)
+- PostCSS (advanced CSS processing)
+- Vitest (unit testing for Vite projects)

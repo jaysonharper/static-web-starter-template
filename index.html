@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
@@ -7,18 +7,61 @@
     <link rel="stylesheet" href="/src/style.css" />
   </head>
   <body>
+    <!-- Demo Alert -->
+    <flow-alert type="info" dismissible>
+      <strong>Welcome!</strong> This starter now includes Lit components with
+      Flowbite styling.
+    </flow-alert>
+
     <div
       id="app"
       class="max-w-3xl mx-auto my-16 p-8 bg-white rounded-xl shadow-lg"
     >
-      <h1 class="text-2xl font-semibold mb-2">Hero Title</h1>
-      <p class="text-slate-600 mb-4">A minimal Vite + vanilla JS starter.</p>
+      <h1 class="text-2xl font-semibold mb-2">Component Demo</h1>
+      <p class="text-slate-600 mb-6">
+        A minimal Vite + Lit + Flowbite starter.
+      </p>
+
+      <!-- Original button -->
       <button
         id="btn"
-        class="bg-sky-500 text-white px-4 py-2 rounded-md hover:bg-sky-600"
+        class="bg-sky-500 text-white px-4 py-2 rounded-md hover:bg-sky-600 mr-4 mb-4"
       >
-        Click me
+        Original Button
       </button>
+
+      <!-- Flow Button Components -->
+      <div class="space-y-4">
+        <div>
+          <h3 class="text-lg font-medium mb-2">Flow Buttons</h3>
+          <div class="flex flex-wrap gap-2">
+            <flow-button variant="primary">Primary</flow-button>
+            <flow-button variant="secondary">Secondary</flow-button>
+            <flow-button variant="success">Success</flow-button>
+            <flow-button variant="danger">Danger</flow-button>
+            <flow-button variant="warning">Warning</flow-button>
+          </div>
+        </div>
+
+        <div>
+          <h3 class="text-lg font-medium mb-2">Button Sizes</h3>
+          <div class="flex flex-wrap items-center gap-2">
+            <flow-button size="xs">Extra Small</flow-button>
+            <flow-button size="sm">Small</flow-button>
+            <flow-button size="md">Medium</flow-button>
+            <flow-button size="lg">Large</flow-button>
+            <flow-button size="xl">Extra Large</flow-button>
+          </div>
+        </div>
+
+        <div>
+          <h3 class="text-lg font-medium mb-2">Button States</h3>
+          <div class="flex flex-wrap gap-2">
+            <flow-button disabled>Disabled</flow-button>
+            <flow-button loading>Loading</flow-button>
+          </div>
+        </div>
+      </div>
     </div>
     <script type="module" src="/src/main.js"></script>
   </body>

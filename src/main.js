@@ -1,3 +1,6 @@
+// Import our component library
+import "./components/index.js";
+
 // Simple entrypoint for the demo site
 // Only run DOM wiring when `document` exists (avoid errors in Node test env)
 if (typeof document !== "undefined") {
@@ -20,6 +23,28 @@ if (typeof document !== "undefined") {
       }
     });
   }
+
+  // Demo the new components
+  setupComponentDemo();
+}
+
+function setupComponentDemo() {
+  // Listen for custom component events
+  document.addEventListener("flow-click", (e) => {
+    console.log("Flow button clicked:", e.detail);
+
+    // Show an alert when button is clicked
+    const alert = document.createElement("flow-alert");
+    alert.type = "success";
+    alert.dismissible = true;
+    alert.innerHTML = `<strong>Success!</strong> You clicked a ${e.detail.variant} button.`;
+
+    document.body.insertBefore(alert, document.body.firstChild);
+  });
+
+  document.addEventListener("flow-alert-closed", (e) => {
+    console.log("Alert closed:", e.detail);
+  });
 }
 
 // Exported for tests or future modules

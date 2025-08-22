@@ -68,6 +68,15 @@ export class FlowNavbar extends LitElement {
       text-align: center;
       flex-grow: 1;
       margin: 0 1rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      padding: 0.5rem;
+      border-radius: 0.375rem;
+    }
+
+    .company-name:hover {
+      background-color: rgba(124, 58, 237, 0.1);
+      transform: translateY(-1px);
     }
 
     .company-line-1 {
@@ -76,6 +85,11 @@ export class FlowNavbar extends LitElement {
       color: #8b949e;
       letter-spacing: 0.025em;
       margin-bottom: -2px;
+      transition: color 0.2s ease;
+    }
+
+    .company-name:hover .company-line-1 {
+      color: #f0f6fc;
     }
 
     .company-line-2 {
@@ -92,68 +106,11 @@ export class FlowNavbar extends LitElement {
       -webkit-text-fill-color: transparent;
       letter-spacing: 0.05em;
       text-shadow: 0 0 30px rgba(124, 58, 237, 0.3);
-    }
-
-    /* Call Button */
-    .call-button {
-      display: flex;
-      align-items: center;
-      background: linear-gradient(135deg, #238636 0%, #2ea043 100%);
-      color: #f0f6fc;
-      padding: 0.5rem 1rem;
-      border-radius: 0.5rem;
-      text-decoration: none;
-      font-weight: 600;
-      font-size: 0.875rem;
       transition: all 0.2s ease;
-      border: 1px solid #2ea043;
-      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
     }
 
-    .call-button:hover {
-      background: linear-gradient(135deg, #2ea043 0%, #46954a 100%);
-      transform: translateY(-1px);
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
-    }
-
-    .phone-icon {
-      width: 1rem;
-      height: 1rem;
-      margin-right: 0.5rem;
-      animation: buzz 5s infinite;
-    }
-
-    .call-button:hover .phone-icon {
-      animation: buzz-hover 0.5s ease-in-out;
-    }
-
-    @keyframes buzz {
-      0%,
-      90%,
-      100% {
-        transform: translateX(0);
-      }
-      92%,
-      96% {
-        transform: translateX(-2px);
-      }
-      94%,
-      98% {
-        transform: translateX(2px);
-      }
-    }
-
-    @keyframes buzz-hover {
-      0%,
-      100% {
-        transform: translateX(0);
-      }
-      25% {
-        transform: translateX(-3px);
-      }
-      75% {
-        transform: translateX(3px);
-      }
+    .company-name:hover .company-line-2 {
+      text-shadow: 0 0 40px rgba(124, 58, 237, 0.5);
     }
 
     /* Desktop Navigation */
@@ -255,11 +212,6 @@ export class FlowNavbar extends LitElement {
       .company-line-2 {
         font-size: 1.5rem;
       }
-
-      .call-button {
-        font-size: 0.925rem;
-        padding: 0.625rem 1.25rem;
-      }
     }
 
     @media (min-width: 1024px) {
@@ -300,7 +252,13 @@ export class FlowNavbar extends LitElement {
         </div>
 
         <!-- Company Name -->
-        <div class="company-name">
+        <div
+          class="company-name"
+          @click="${this._scrollToTop}"
+          role="button"
+          tabindex="0"
+          @keydown="${this._handleCompanyNameKeydown}"
+        >
           <div class="company-line-1">Law Offices of</div>
           <div class="company-line-2">Harper & Cats</div>
         </div>
@@ -325,14 +283,11 @@ export class FlowNavbar extends LitElement {
         </div>
 
         <!-- Call Button -->
-        <a href="tel:+15555555555" class="call-button">
-          <svg class="phone-icon" fill="currentColor" viewBox="0 0 20 20">
-            <path
-              d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"
-            />
-          </svg>
-          Call (555) 555-5555
-        </a>
+        <flow-call-button
+          phone-number="+15555555555"
+          size="md"
+          variant="navbar"
+        ></flow-call-button>
 
         <!-- Mobile Menu -->
         <div class="mobile-menu ${this.mobileMenuOpen ? "active" : ""}">
@@ -388,6 +343,20 @@ export class FlowNavbar extends LitElement {
         top: offsetTop,
         behavior: "smooth",
       });
+    }
+  }
+
+  _scrollToTop() {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  }
+
+  _handleCompanyNameKeydown(e) {
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      this._scrollToTop();
     }
   }
 }

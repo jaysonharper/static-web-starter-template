@@ -25,12 +25,11 @@
             individuals and businesses
           </p>
           <div class="hero-actions">
-            <flow-button variant="primary" size="lg">
-              <a href="tel:+15555555555" class="button-link">Call Now</a>
-            </flow-button>
-            <flow-button variant="secondary" size="lg">
-              <a href="#services" class="button-link">Our Services</a>
-            </flow-button>
+            <flow-call-button
+              phone-number="+15555555555"
+              size="xl"
+              variant="hero"
+            ></flow-call-button>
           </div>
         </div>
       </section>
@@ -152,6 +151,9 @@
         </div>
       </section>
     </div>
+
+    <!-- Scroll to Top Button -->
+    <flow-scroll-to-top></flow-scroll-to-top>
 
     <script type="module" src="/src/main.js"></script>
   </body>

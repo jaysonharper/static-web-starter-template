@@ -54,13 +54,43 @@ function setupComponentEvents() {
       return;
     }
 
-    // Show success feedback for other buttons
-    showNotification("Action completed successfully!", "success");
+    // Note: Notifications can be added explicitly when needed
+  });
+
+  // Listen for custom flow-call-button events
+  document.addEventListener("flow-call-click", (e) => {
+    console.log("Call button clicked:", e.detail);
+
+    const { phoneNumber, variant, size } = e.detail;
+
+    // Track call attempt with additional context
+    trackEvent("phone_call_attempted", {
+      phone_number: phoneNumber,
+      source: variant === "hero" ? "hero_section" : "navbar",
+      button_size: size,
+      button_variant: variant,
+    });
+
+    // Note: Call confirmation alerts can be added explicitly when needed
   });
 
   // Listen for alert events
   document.addEventListener("flow-alert-closed", (e) => {
     console.log("Alert closed:", e.detail);
+  });
+
+  // Listen for scroll-to-top events
+  document.addEventListener("flow-scroll-top-click", (e) => {
+    console.log("Scroll to top clicked:", e.detail);
+
+    // Track scroll to top usage
+    trackEvent("scroll_to_top_used", {
+      timestamp: e.detail.timestamp,
+      scroll_position: e.detail.scrollPosition,
+      source: "scroll_to_top_button",
+    });
+
+    // Note: Scroll confirmation alerts can be added explicitly when needed
   });
 }
 
@@ -101,36 +131,9 @@ function setupPhoneCallHandling() {
         source: link.closest(".call-button") ? "navbar" : "hero",
       });
 
-      // Show confirmation message
-      showNotification("Initiating call to " + phoneNumber, "info");
+      // Note: Call confirmation alerts can be added explicitly when needed
     }
   });
-}
-
-function showNotification(message, type = "info") {
-  // Create and show a temporary notification
-  const alert = document.createElement("flow-alert");
-  alert.type = type;
-  alert.dismissible = true;
-  alert.innerHTML = `<strong>${
-    type === "success" ? "Success!" : "Info:"
-  }</strong> ${message}`;
-
-  // Style the alert for better positioning
-  alert.style.position = "fixed";
-  alert.style.top = "100px";
-  alert.style.right = "20px";
-  alert.style.zIndex = "9999";
-  alert.style.maxWidth = "400px";
-
-  document.body.appendChild(alert);
-
-  // Auto-remove after 5 seconds if not manually dismissed
-  setTimeout(() => {
-    if (alert.parentNode) {
-      alert.remove();
-    }
-  }, 5000);
 }
 
 function trackEvent(eventName, eventData) {

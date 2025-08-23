@@ -15,8 +15,8 @@ export default defineConfig({
     manifest: false,
     // Optimize for modern browsers
     target: "esnext",
-    // Minify for production
-    minify: "terser",
+    // Minify for production (esbuild is faster and built-in)
+    minify: "esbuild",
     // Generate source maps for debugging
     sourcemap: false,
   },

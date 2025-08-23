@@ -92,6 +92,18 @@ function setupComponentEvents() {
 
     // Note: Scroll confirmation alerts can be added explicitly when needed
   });
+
+  // Listen for scales icon events
+  document.addEventListener("scales-click", (e) => {
+    console.log("Scales of Justice clicked:", e.detail);
+
+    // Track scales interaction
+    trackEvent("scales_icon_clicked", {
+      timestamp: e.detail.timestamp,
+      current_state: e.detail.currentState,
+      source: "navbar_scales_icon",
+    });
+  });
 }
 
 function setupScrollAnimations() {

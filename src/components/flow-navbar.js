@@ -282,12 +282,8 @@ export class FlowNavbar extends LitElement {
           >
         </div>
 
-        <!-- Call Button -->
-        <flow-call-button
-          phone-number="+15555555555"
-          size="md"
-          variant="navbar"
-        ></flow-call-button>
+        <!-- Scales of Justice Icon -->
+        <flow-scales-icon></flow-scales-icon>
 
         <!-- Mobile Menu -->
         <div class="mobile-menu ${this.mobileMenuOpen ? "active" : ""}">

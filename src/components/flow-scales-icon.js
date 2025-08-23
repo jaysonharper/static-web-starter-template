@@ -69,11 +69,11 @@ export class FlowScalesIcon extends LitElement {
     }
 
     .chain-left {
-      d: path("M 8 16 L 8 20");
+      /* Removed invalid d property */
     }
 
     .chain-right {
-      d: path("M 32 16 L 32 20");
+      /* Removed invalid d property */
     }
 
     /* Unbalanced state */

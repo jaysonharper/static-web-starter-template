@@ -3,9 +3,19 @@
 
 import "./flow-button.js";
 import "./flow-alert.js";
+import "./flow-navbar.js";
+import "./flow-call-button.js";
+import "./flow-scroll-to-top.js";
+import "./flow-scales-icon.js";
+import "./flow-floating-call-button.js";
 
 // Export for programmatic access
 export { FlowButton } from "./flow-button.js";
 export { FlowAlert } from "./flow-alert.js";
+export { FlowNavbar } from "./flow-navbar.js";
+export { FlowCallButton } from "./flow-call-button.js";
+export { FlowScrollToTop } from "./flow-scroll-to-top.js";
+export { FlowScalesIcon } from "./flow-scales-icon.js";
+export { FlowFloatingCallButton } from "./flow-floating-call-button.js";
 
 console.log("🎨 Flow Components loaded successfully");

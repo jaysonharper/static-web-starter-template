@@ -104,6 +104,19 @@ function setupComponentEvents() {
       source: "navbar_scales_icon",
     });
   });
+
+  // Listen for floating call button events
+  document.addEventListener("flow-floating-call-click", (e) => {
+    console.log("Floating call button clicked:", e.detail);
+
+    // Track floating call button usage
+    trackEvent("floating_call_button_clicked", {
+      timestamp: e.detail.timestamp,
+      phone_number: e.detail.phoneNumber,
+      scroll_position: e.detail.scrollPosition,
+      source: "floating_call_button",
+    });
+  });
 }
 
 function setupScrollAnimations() {

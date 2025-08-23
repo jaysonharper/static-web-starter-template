@@ -115,6 +115,21 @@ export class FlowScalesIcon extends LitElement {
       filter: drop-shadow(0 0 12px rgba(255, 215, 0, 0.8))
         drop-shadow(0 0 20px rgba(255, 215, 0, 0.4));
     }
+
+    /* Responsive scaling */
+    @media (min-width: 768px) {
+      .scales-container {
+        width: 55px;
+        height: 55px;
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .scales-container {
+        width: 60px;
+        height: 60px;
+      }
+    }
   `;
 
   static properties = {

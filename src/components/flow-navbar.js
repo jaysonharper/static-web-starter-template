@@ -28,7 +28,7 @@ export class FlowNavbar extends LitElement {
       position: relative;
     }
 
-    /* Mobile Menu Toggle */
+    /* Menu Toggle - Always visible */
     .menu-toggle {
       display: flex;
       flex-direction: column;
@@ -113,24 +113,48 @@ export class FlowNavbar extends LitElement {
       text-shadow: 0 0 40px rgba(124, 58, 237, 0.5);
     }
 
-    /* Desktop Navigation */
-    .desktop-nav {
-      display: none;
-      align-items: center;
-      gap: 2rem;
-      margin-right: 1rem;
+    /* Navigation Menu */
+    .nav-menu {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background: linear-gradient(135deg, #0d1117 0%, #161b22 100%);
+      border-bottom: 1px solid #30363d;
+      transform: translateY(-100%);
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
     }
 
-    .nav-link {
+    .nav-menu.active {
+      transform: translateY(0);
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .nav-links {
+      display: flex;
+      flex-direction: column;
+      padding: 1rem;
+      gap: 0.5rem;
+    }
+
+    .nav-links .nav-link {
+      width: 100%;
+      text-align: center;
+      padding: 0.75rem 1rem;
+      border: 1px solid #30363d;
       color: #f0f6fc;
       text-decoration: none;
       font-weight: 600;
       font-size: 0.925rem;
-      padding: 0.5rem 1rem;
       border-radius: 0.375rem;
       transition: all 0.2s ease;
       position: relative;
       overflow: hidden;
+      box-sizing: border-box;
     }
 
     .nav-link::before {
@@ -159,50 +183,16 @@ export class FlowNavbar extends LitElement {
       left: 100%;
     }
 
-    /* Mobile Menu */
-    .mobile-menu {
-      position: absolute;
-      top: 100%;
-      left: 0;
-      right: 0;
-      background: linear-gradient(135deg, #0d1117 0%, #161b22 100%);
-      border-bottom: 1px solid #30363d;
-      transform: translateY(-100%);
-      opacity: 0;
-      visibility: hidden;
-      transition: all 0.3s ease;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-    }
-
-    .mobile-menu.active {
-      transform: translateY(0);
-      opacity: 1;
-      visibility: visible;
-    }
-
-    .mobile-nav {
-      display: flex;
-      flex-direction: column;
-      padding: 1rem;
-      gap: 0.5rem;
-    }
-
-    .mobile-nav .nav-link {
-      width: 100%;
-      text-align: center;
-      padding: 0.75rem 1rem;
-      border: 1px solid #30363d;
-      margin-bottom: 0.5rem;
-    }
-
-    /* Responsive Design */
+    /* Responsive Design - Scale icons and text */
     @media (min-width: 768px) {
       .menu-toggle {
-        display: none;
+        padding: 0.6rem;
+        transform: scale(1.1);
       }
 
-      .desktop-nav {
-        display: flex;
+      .menu-toggle span {
+        width: 1.65rem;
+        height: 2.2px;
       }
 
       .company-line-1 {
@@ -217,6 +207,16 @@ export class FlowNavbar extends LitElement {
     @media (min-width: 1024px) {
       .navbar {
         padding: 1rem 2rem;
+      }
+
+      .menu-toggle {
+        padding: 0.7rem;
+        transform: scale(1.25);
+      }
+
+      .menu-toggle span {
+        width: 1.8rem;
+        height: 2.5px;
       }
 
       .company-line-1 {
@@ -241,7 +241,7 @@ export class FlowNavbar extends LitElement {
   render() {
     return html`
       <nav class="navbar">
-        <!-- Mobile Menu Toggle -->
+        <!-- Menu Toggle - Always visible -->
         <div
           class="menu-toggle ${this.mobileMenuOpen ? "active" : ""}"
           @click="${this._toggleMobileMenu}"
@@ -263,53 +263,31 @@ export class FlowNavbar extends LitElement {
           <div class="company-line-2">Harper & Cats</div>
         </div>
 
-        <!-- Desktop Navigation -->
-        <div class="desktop-nav">
-          <a href="#services" class="nav-link" @click="${this._handleNavClick}"
-            >Services</a
-          >
-          <a href="#attorneys" class="nav-link" @click="${this._handleNavClick}"
-            >Attorneys</a
-          >
-          <a
-            href="#testimonials"
-            class="nav-link"
-            @click="${this._handleNavClick}"
-            >Testimonials</a
-          >
-          <a href="#find-us" class="nav-link" @click="${this._handleNavClick}"
-            >Find Us</a
-          >
-        </div>
-
         <!-- Scales of Justice Icon -->
         <flow-scales-icon></flow-scales-icon>
 
-        <!-- Mobile Menu -->
-        <div class="mobile-menu ${this.mobileMenuOpen ? "active" : ""}">
-          <div class="mobile-nav">
+        <!-- Navigation Menu -->
+        <div class="nav-menu ${this.mobileMenuOpen ? "active" : ""}">
+          <div class="nav-links">
             <a
               href="#services"
               class="nav-link"
-              @click="${this._handleMobileNavClick}"
+              @click="${this._handleNavClick}"
               >Services</a
             >
             <a
               href="#attorneys"
               class="nav-link"
-              @click="${this._handleMobileNavClick}"
+              @click="${this._handleNavClick}"
               >Attorneys</a
             >
             <a
               href="#testimonials"
               class="nav-link"
-              @click="${this._handleMobileNavClick}"
+              @click="${this._handleNavClick}"
               >Testimonials</a
             >
-            <a
-              href="#find-us"
-              class="nav-link"
-              @click="${this._handleMobileNavClick}"
+            <a href="#find-us" class="nav-link" @click="${this._handleNavClick}"
               >Find Us</a
             >
           </div>
@@ -323,11 +301,7 @@ export class FlowNavbar extends LitElement {
   }
 
   _handleNavClick(e) {
-    this._smoothScroll(e.target.getAttribute("href"));
-  }
-
-  _handleMobileNavClick(e) {
-    this.mobileMenuOpen = false;
+    this.mobileMenuOpen = false; // Close menu when link is clicked
     this._smoothScroll(e.target.getAttribute("href"));
   }
 

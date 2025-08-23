@@ -105,6 +105,7 @@
   .content-section {
     @apply py-20;
     position: relative;
+    background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
   }
 
   .bg-alternate {

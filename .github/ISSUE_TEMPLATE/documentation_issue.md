@@ -1,9 +1,10 @@
 ---
-name: 📚 Documentation Issue
+name: "\U0001F4DA Documentation Issue"
 about: Report problems with documentation, comments, or project guides
 title: "[DOCS] "
 labels: documentation, enhancement
 assignees: jaysonharper
+
 ---
 
 ## 📚 Documentation Issue Summary

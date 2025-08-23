@@ -1,9 +1,10 @@
 ---
-name: 📱 UI/UX Issue
+name: "\U0001F4F1 UI/UX Issue"
 about: Report issues with user interface, design, or user experience
 title: "[UI/UX] "
-labels: design, user-experience, needs-review
+labels: ''
 assignees: jaysonharper
+
 ---
 
 ## 📱 UI/UX Issue Description

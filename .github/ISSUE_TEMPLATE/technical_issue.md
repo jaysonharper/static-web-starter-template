@@ -1,9 +1,10 @@
 ---
-name: ⚙️ Technical Issue
+name: "⚙️ Technical Issue"
 about: Report technical problems, deployment issues, or development concerns
 title: "[TECH] "
-labels: technical, needs-investigation
+labels: ''
 assignees: jaysonharper
+
 ---
 
 ## ⚙️ Technical Issue Summary

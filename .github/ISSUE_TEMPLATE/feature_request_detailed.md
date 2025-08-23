@@ -1,9 +1,10 @@
 ---
-name: 🚀 Feature Request
+name: "\U0001F680 Feature Request"
 about: Suggest a new feature or enhancement for the law office website
 title: "[FEATURE] "
-labels: enhancement, needs-review
+labels: enhancement
 assignees: jaysonharper
+
 ---
 
 ## 🚀 Feature Request Summary

@@ -1,9 +1,10 @@
 ---
-name: 🐛 Bug Report
+name: "\U0001F41B Bug Report"
 about: Report a bug or issue with the website
 title: "[BUG] "
-labels: bug, needs-triage
+labels: bug
 assignees: jaysonharper
+
 ---
 
 ## 🐛 Bug Description

@@ -4,9 +4,6 @@
     @apply grid gap-6 grid-cols-1 sm:grid-cols-2;
     grid-auto-rows: 1fr;
     /* Cross-browser grid support */
-    -ms-grid-columns: 1fr;
-    -webkit-grid-template-rows: auto;
-    -moz-grid-template-rows: auto;
     grid-template-rows: auto;
     /* Ensure consistent rendering */
     will-change: auto;

@@ -23,6 +23,13 @@ export class FlowScrollToTop extends LitElement {
       transform: translateY(0) scale(1);
     }
 
+    :host([pinned]) {
+      position: absolute;
+      bottom: auto;
+      top: -5rem;
+      right: 2rem;
+    }
+
     .scroll-button {
       width: 3.5rem;
       height: 3.5rem;
@@ -145,24 +152,32 @@ export class FlowScrollToTop extends LitElement {
 
   static properties = {
     visible: { type: Boolean, reflect: true },
+    pinned: { type: Boolean, reflect: true },
   };
 
   constructor() {
     super();
     this.visible = false;
+    this.pinned = false;
     this._intersectionObserver = null;
+    this._footerObserver = null;
     this._heroElement = null;
+    this._footerElement = null;
   }
 
   connectedCallback() {
     super.connectedCallback();
     this._setupIntersectionObserver();
+    this._setupFooterObserver();
   }
 
   disconnectedCallback() {
     super.disconnectedCallback();
     if (this._intersectionObserver) {
       this._intersectionObserver.disconnect();
+    }
+    if (this._footerObserver) {
+      this._footerObserver.disconnect();
     }
   }
 
@@ -207,6 +222,31 @@ export class FlowScrollToTop extends LitElement {
         );
 
         this._intersectionObserver.observe(this._heroElement);
+      }
+    });
+  }
+
+  _setupFooterObserver() {
+    // Wait for next frame to ensure DOM is ready
+    requestAnimationFrame(() => {
+      this._footerElement = document.querySelector("footer");
+
+      if (this._footerElement) {
+        this._footerObserver = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              // Pin button when footer comes into view
+              this.pinned = entry.isIntersecting;
+            });
+          },
+          {
+            root: null,
+            rootMargin: "0px",
+            threshold: 0.1,
+          }
+        );
+
+        this._footerObserver.observe(this._footerElement);
       }
     });
   }

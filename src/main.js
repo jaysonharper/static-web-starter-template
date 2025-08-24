@@ -20,6 +20,17 @@ if (window.chrome && window.chrome.runtime) {
   );
 }
 
+// Development utilities
+if (import.meta.env.DEV) {
+  // Add global console clearing function for development
+  window.clearAll = () => {
+    console.clear();
+    console.log("🧹 Console cleared!");
+    console.log("🚀 Law Offices of Harper & Cats - Development Mode");
+  };
+  console.log("💡 Development mode: Use clearAll() to clear console");
+}
+
 // Main application entrypoint for Law Offices of Harper & Cats
 // Only run DOM wiring when `document` exists (avoid errors in Node test env)
 if (typeof document !== "undefined") {

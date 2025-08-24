@@ -80,7 +80,7 @@
   }
 
   .highlight-summary {
-    @apply text-gray-600 text-sm md:text-base;
+    @apply text-gray-600 text-sm md:text-base font-semibold;
     line-height: 1.4;
     display: flex;
     align-items: center;
@@ -91,13 +91,15 @@
   }
 
   .highlight-details {
-    @apply text-left pt-4 border-t border-gray-200;
+    @apply text-left pt-4 mt-3;
+    border-top: 2px solid #e5e7eb;
+    border-image: linear-gradient(90deg, #3b82f6 0%, #e5e7eb 50%, #3b82f6 100%)
+      1;
     max-height: none;
     opacity: 1;
     overflow: visible;
     transition: none;
     flex-grow: 1;
-    margin-top: auto;
   }
 
   .highlight-details p {

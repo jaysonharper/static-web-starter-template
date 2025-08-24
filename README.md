@@ -136,7 +136,9 @@ The project includes a growing library of reusable Lit web components:
 #### Flow Floating Call Button (`<flow-floating-call-button>`)
 
 ```html
-<flow-floating-call-button phone-number="+15555555555"></flow-floating-call-button>
+<flow-floating-call-button
+  phone-number="+15555555555"
+></flow-floating-call-button>
 ```
 
 **Properties:**
@@ -146,6 +148,7 @@ The project includes a growing library of reusable Lit web components:
 - `pinned`: boolean (auto-managed)
 
 **Features:**
+
 - Appears when hero section scrolls out of view
 - Smart positioning above footer when footer is visible
 - Intersection Observer-based visibility control
@@ -162,6 +165,7 @@ The project includes a growing library of reusable Lit web components:
 - `pinned`: boolean (auto-managed)
 
 **Features:**
+
 - Smooth scroll to top functionality
 - Appears when hero section scrolls out of view
 - Smart positioning above footer when footer is visible
@@ -171,17 +175,20 @@ The project includes a growing library of reusable Lit web components:
 The footer component provides a professional, mobile-responsive footer:
 
 **Desktop/Tablet Features:**
+
 - Business name and tagline
 - Navigation links to main sections
 - Complete copyright notice
 - Dark gradient theme matching navbar
 
 **Mobile Features:**
+
 - Compact design with essential information only
 - No redundant navigation (hamburger menu provides navigation)
 - Optimized typography and spacing
 
 **Smart Integration:**
+
 - Floating elements automatically pin above footer when footer comes into view
 - Prevents UI overlap while maintaining functionality
 - Smooth transitions between positioning states
@@ -205,8 +212,13 @@ The footer component provides a professional, mobile-responsive footer:
 │   │   ├── flow-alert.js
 │   │   └── *.stories.js # Storybook stories
 │   ├── stories/         # Default Storybook examples
-│   ├── main.js          # Application entry point
-│   └── style.css        # Global styles
+│   ├── styles/          # Modular CSS architecture
+│   │   ├── main.css     # Main stylesheet entry point
+│   │   ├── base/        # Reset, variables, typography
+│   │   ├── components/  # Component-specific styles
+│   │   ├── layout/      # Layout and animations
+│   │   └── utilities/   # Responsive and scroll utilities
+│   └── main.js          # Application entry point
 ├── index.html           # Main HTML file
 └── vite.config.js       # Vite configuration
 ```

@@ -2,9 +2,8 @@
 name: "⚙️ Technical Issue"
 about: Report technical problems, deployment issues, or development concerns
 title: "[TECH] "
-labels: ''
+labels: ""
 assignees: jaysonharper
-
 ---
 
 ## ⚙️ Technical Issue Summary
@@ -27,7 +26,7 @@ assignees: jaysonharper
 - [ ] 📱 Responsive Design
 - [ ] ♿ Accessibility
 - [ ] 🔄 CI/CD Pipeline
-- [ ] Other: ****\_\_\_****
+- [ ] Other: \***\*\_\_\_\*\***
 
 ## 🔍 Technical Details
 
@@ -57,7 +56,8 @@ Include relevant build output if applicable
 **Which files or components are involved?**
 
 - [ ] `src/main.js`
-- [ ] `src/style.css`
+- [ ] `src/styles/main.css`
+- [ ] `src/styles/components/` (component styles)
 - [ ] `src/components/flow-navbar.js`
 - [ ] `src/components/flow-scales-icon.js`
 - [ ] `src/components/flow-floating-call-button.js`
@@ -70,7 +70,7 @@ Include relevant build output if applicable
 - [ ] `.github/workflows/deploy.yml`
 - [ ] Storybook files
 - [ ] Test files
-- [ ] Other: ****\_\_\_****
+- [ ] Other: \***\*\_\_\_\*\***
 
 ## 🔄 Steps to Reproduce
 
@@ -108,7 +108,7 @@ npm test
 - [ ] Latest dependencies
 - [ ] Development server running
 - [ ] No local modifications
-- [ ] Other: ****\_\_\_****
+- [ ] Other: \***\*\_\_\_\*\***
 
 ## 🚀 Deployment Context
 

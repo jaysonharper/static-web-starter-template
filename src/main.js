@@ -1,14 +1,51 @@
 // Import our component library
 import "./components/index.js";
 
+// Debug browser session differences
+console.log("Browser info:", {
+  userAgent: navigator.userAgent,
+  cookieEnabled: navigator.cookieEnabled,
+  onLine: navigator.onLine,
+  language: navigator.language,
+  viewport: `${window.innerWidth}x${window.innerHeight}`,
+  devicePixelRatio: window.devicePixelRatio,
+  hasLocalStorage: typeof Storage !== "undefined",
+  timestamp: new Date().toISOString(),
+});
+
+// Check for browser extensions that might affect rendering
+if (window.chrome && window.chrome.runtime) {
+  console.log(
+    "Chrome extensions detected - this may affect rendering in logged-in sessions"
+  );
+}
+
+// Development utilities
+if (import.meta.env.DEV) {
+  // Add global console clearing function for development
+  window.clearAll = () => {
+    console.clear();
+    console.log("🧹 Console cleared!");
+    console.log("🚀 Law Offices of Harper & Cats - Development Mode");
+  };
+  console.log("💡 Development mode: Use clearAll() to clear console");
+}
+
 // Main application entrypoint for Law Offices of Harper & Cats
 // Only run DOM wiring when `document` exists (avoid errors in Node test env)
 if (typeof document !== "undefined") {
-  // Initialize the application
-  initializeApp();
+  // Ensure DOM is fully loaded before initializing
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initializeApp);
+  } else {
+    // DOM is already ready
+    initializeApp();
+  }
 }
 
 function initializeApp() {
+  console.log("Initializing app at:", new Date().toISOString());
+
   // Setup smooth scrolling for navigation links
   setupSmoothScrolling();
 
@@ -20,6 +57,17 @@ function initializeApp() {
 
   // Setup phone call functionality
   setupPhoneCallHandling();
+
+  // Force layout recalculation to ensure consistent rendering
+  setTimeout(() => {
+    const serviceHighlights = document.querySelector(".service-highlights");
+    if (serviceHighlights) {
+      serviceHighlights.style.display = "none";
+      serviceHighlights.offsetHeight; // Force reflow
+      serviceHighlights.style.display = "grid";
+      console.log("Service highlights layout refreshed");
+    }
+  }, 100);
 }
 
 function setupSmoothScrolling() {

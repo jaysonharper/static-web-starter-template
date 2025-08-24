@@ -7,11 +7,13 @@ The floating UI elements (call button and scroll-to-top button) feature intellig
 ## Components Affected
 
 ### Flow Floating Call Button
+
 - **File**: `src/components/flow-floating-call-button.js`
 - **Position**: Bottom-left corner
 - **Functionality**: Appears when hero section is out of view
 
 ### Flow Scroll to Top Button
+
 - **File**: `src/components/flow-scroll-to-top.js`
 - **Position**: Bottom-right corner
 - **Functionality**: Appears when hero section is out of view
@@ -19,6 +21,7 @@ The floating UI elements (call button and scroll-to-top button) feature intellig
 ## Smart Positioning Logic
 
 ### Default State (Fixed Positioning)
+
 ```css
 :host {
   position: fixed;
@@ -29,6 +32,7 @@ The floating UI elements (call button and scroll-to-top button) feature intellig
 ```
 
 ### Pinned State (Absolute Positioning)
+
 ```css
 :host([pinned]) {
   position: absolute;
@@ -107,17 +111,20 @@ disconnectedCallback() {
 ## Positioning Behavior
 
 ### Scenario 1: Normal Scrolling
+
 - Elements remain fixed to viewport bottom
 - Maintain 2rem margin from screen edges
 - Standard z-index layering
 
 ### Scenario 2: Footer Approaches
+
 - Intersection Observer detects footer entering viewport
 - Components receive `pinned="true"` attribute
 - CSS switches to absolute positioning
 - Elements position 5rem above footer top
 
 ### Scenario 3: Footer Leaves View
+
 - Intersection Observer detects footer leaving viewport
 - Components receive `pinned="false"` attribute
 - CSS reverts to fixed positioning
@@ -126,16 +133,19 @@ disconnectedCallback() {
 ## Cross-Screen Compatibility
 
 ### Mobile Devices
+
 - Compact footer reduces potential overlap
 - Smart positioning still active
 - Touch-friendly button sizes maintained
 
 ### Tablets
+
 - Full footer with navigation links
 - Optimal spacing maintained
 - Responsive positioning adjustments
 
 ### Desktop
+
 - Complete footer experience
 - Maximum content without overlap
 - Precise positioning control
@@ -143,11 +153,13 @@ disconnectedCallback() {
 ## Performance Considerations
 
 ### Efficient Observer Management
+
 - Single observer per component per target
 - Proper cleanup on component destruction
 - RequestAnimationFrame for DOM-ready detection
 
 ### CSS Transitions
+
 - Smooth animations between states
 - Hardware-accelerated transforms
 - Minimal reflow/repaint operations
@@ -159,6 +171,7 @@ disconnectedCallback() {
 ```
 
 ### Memory Management
+
 - Observers disconnected on component removal
 - No memory leaks from uncleaned observers
 - Efficient DOM queries with caching
@@ -166,17 +179,20 @@ disconnectedCallback() {
 ## Testing Coverage
 
 ### Unit Tests
+
 - Observer setup verification
 - State change validation
 - Property reflection testing
 - Event dispatching confirmation
 
 ### Integration Tests
+
 - Footer interaction testing
 - Multi-component coordination
 - Responsive behavior validation
 
 ### Browser Tests
+
 - Cross-browser observer support
 - CSS positioning compatibility
 - Animation performance testing
@@ -186,11 +202,13 @@ disconnectedCallback() {
 ### Common Issues
 
 1. **Elements not pinning**
+
    - Verify footer has correct selector
    - Check Intersection Observer support
    - Validate CSS positioning context
 
 2. **Positioning incorrect**
+
    - Ensure footer has `position: relative`
    - Check CSS specificity conflicts
    - Verify z-index layering
@@ -222,12 +240,14 @@ updated(changedProperties) {
 ## Future Enhancements
 
 ### Potential Improvements
+
 - Dynamic margin calculation based on footer height
 - Multiple footer support for complex layouts
 - Animation customization options
 - Performance monitoring and optimization
 
 ### Accessibility Enhancements
+
 - Screen reader announcements for position changes
 - High contrast mode support
 - Reduced motion preferences

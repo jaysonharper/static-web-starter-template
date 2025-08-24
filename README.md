@@ -133,6 +133,59 @@ The project includes a growing library of reusable Lit web components:
 - `dismissible`: boolean
 - `icon`: boolean
 
+#### Flow Floating Call Button (`<flow-floating-call-button>`)
+
+```html
+<flow-floating-call-button phone-number="+15555555555"></flow-floating-call-button>
+```
+
+**Properties:**
+
+- `phone-number`: string (tel: format)
+- `visible`: boolean (auto-managed)
+- `pinned`: boolean (auto-managed)
+
+**Features:**
+- Appears when hero section scrolls out of view
+- Smart positioning above footer when footer is visible
+- Intersection Observer-based visibility control
+
+#### Flow Scroll to Top (`<flow-scroll-to-top>`)
+
+```html
+<flow-scroll-to-top></flow-scroll-to-top>
+```
+
+**Properties:**
+
+- `visible`: boolean (auto-managed)
+- `pinned`: boolean (auto-managed)
+
+**Features:**
+- Smooth scroll to top functionality
+- Appears when hero section scrolls out of view
+- Smart positioning above footer when footer is visible
+
+#### Responsive Footer
+
+The footer component provides a professional, mobile-responsive footer:
+
+**Desktop/Tablet Features:**
+- Business name and tagline
+- Navigation links to main sections
+- Complete copyright notice
+- Dark gradient theme matching navbar
+
+**Mobile Features:**
+- Compact design with essential information only
+- No redundant navigation (hamburger menu provides navigation)
+- Optimized typography and spacing
+
+**Smart Integration:**
+- Floating elements automatically pin above footer when footer comes into view
+- Prevents UI overlap while maintaining functionality
+- Smooth transitions between positioning states
+
 ### Creating New Components
 
 1. Create component in `src/components/`

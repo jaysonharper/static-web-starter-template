@@ -2,13 +2,62 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1,user-scalable=no"
+    />
     <title>Law Offices of Harper & Cats</title>
     <meta
       name="description"
       content="Professional legal services from experienced attorneys at Law Offices of Harper & Cats"
     />
+    <!-- Disable browser extensions affecting layout -->
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="msapplication-config" content="none" />
+    <meta name="theme-color" content="#f8fafc" />
+    <!-- Ensure consistent CSS loading across browsers -->
+    <link rel="preload" href="/src/style.css" as="style" />
     <link rel="stylesheet" href="/src/style.css" />
+    <!-- Cache busting and cross-browser compatibility -->
+    <meta
+      http-equiv="Cache-Control"
+      content="no-cache, no-store, must-revalidate"
+    />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <!-- Inline critical CSS for consistent initial rendering -->
+    <style>
+      /* Force consistent font rendering across browsers */
+      html,
+      body {
+        -webkit-font-smoothing: antialiased !important;
+        -moz-osx-font-smoothing: grayscale !important;
+        text-rendering: optimizeLegibility !important;
+        font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+          "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif !important;
+      }
+      /* Force grid layout consistency */
+      .service-highlights {
+        display: grid !important;
+        grid-template-columns: 1fr !important;
+        gap: 1.5rem !important;
+      }
+      @media (min-width: 640px) {
+        .service-highlights {
+          grid-template-columns: repeat(2, 1fr) !important;
+        }
+      }
+      @media (min-width: 900px) {
+        .service-highlights {
+          grid-template-columns: repeat(3, 1fr) !important;
+        }
+      }
+      @media (min-width: 1200px) {
+        .service-highlights {
+          grid-template-columns: repeat(4, 1fr) !important;
+        }
+      }
+    </style>
   </head>
   <body>
     <!-- Navigation Bar -->
@@ -128,7 +177,7 @@
               <div class="highlight-item">
                 <div class="highlight-content">
                   <div class="title-row">
-                    <h3>Estate & Tax Planning</h3>
+                    <h3>Estate Plans</h3>
                   </div>
                   <p class="highlight-summary">
                     Wills, trusts, and comprehensive tax strategies

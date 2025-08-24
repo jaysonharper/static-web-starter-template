@@ -306,11 +306,11 @@ li {
 }
 
 .service-features {
-  @apply list-none p-0 m-0;
+  @apply list-none p-0 m-0 text-left;
 }
 
 .service-features li {
-  @apply text-gray-600 text-sm md:text-base py-1 pl-4 relative;
+  @apply text-gray-600 text-sm md:text-base py-1 pl-6 relative;
   line-height: 1.4;
 }
 

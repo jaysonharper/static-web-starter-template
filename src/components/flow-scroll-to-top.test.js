@@ -130,7 +130,7 @@ describe("FlowScrollToTop", () => {
 
     const svg = component.shadowRoot.querySelector("svg");
     expect(svg).toBeTruthy();
-    expect(svg.getAttribute("viewBox")).toBe("0 0 24 24");
+    expect(svg.getAttribute("viewBox")).toBe("0 0 20 20");
   });
 
   it("should disconnect observers on disconnection", async () => {

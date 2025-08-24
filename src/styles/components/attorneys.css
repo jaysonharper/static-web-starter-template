@@ -1,0 +1,28 @@
+@layer components {
+  /* Attorney Preview */
+  .attorney-preview {
+    @apply grid md:grid-cols-2 gap-8;
+  }
+
+  .attorney-item {
+    @apply text-center;
+  }
+
+  .attorney-placeholder {
+    @apply w-24 h-24 rounded-full mx-auto mb-4;
+    background: linear-gradient(
+      135deg,
+      var(--github-accent-primary) 0%,
+      var(--github-accent-secondary) 100%
+    );
+  }
+
+  .attorney-item h3 {
+    @apply text-xl font-bold mb-2;
+    color: var(--github-bg-primary);
+  }
+
+  .attorney-item p {
+    @apply text-gray-600;
+  }
+}

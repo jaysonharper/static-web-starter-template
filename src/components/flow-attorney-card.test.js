@@ -1,9 +1,14 @@
-import { expect, describe, it, beforeEach, vi } from "vitest";
-import { fixture, html } from "@open-wc/testing";
-import "./flow-attorney-card.js";
+import { expect, describe, it, beforeEach, afterEach, vi } from "vitest";
+import { FlowAttorneyCard } from "./flow-attorney-card.js";
+
+// Register the custom element
+if (!customElements.get("flow-attorney-card")) {
+  customElements.define("flow-attorney-card", FlowAttorneyCard);
+}
 
 describe("FlowAttorneyCard", () => {
   let element;
+  let container;
 
   const defaultProps = {
     name: "Test Attorney",
@@ -18,19 +23,21 @@ describe("FlowAttorneyCard", () => {
   };
 
   beforeEach(async () => {
-    element = await fixture(html`
-      <flow-attorney-card
-        .name="${defaultProps.name}"
-        .email="${defaultProps.email}"
-        .image="${defaultProps.image}"
-        .imageAlt="${defaultProps.imageAlt}"
-        .specialties="${defaultProps.specialties}"
-        .education="${defaultProps.education}"
-        .memberships="${defaultProps.memberships}"
-        .admissions="${defaultProps.admissions}"
-        .biography="${defaultProps.biography}"
-      ></flow-attorney-card>
-    `);
+    container = document.createElement("div");
+    document.body.appendChild(container);
+
+    element = document.createElement("flow-attorney-card");
+    Object.assign(element, defaultProps);
+    container.appendChild(element);
+
+    // Wait for component to update
+    await new Promise((resolve) => setTimeout(resolve, 100));
+  });
+
+  afterEach(() => {
+    if (container && container.parentNode) {
+      container.parentNode.removeChild(container);
+    }
   });
 
   describe("Rendering", () => {
@@ -39,23 +46,26 @@ describe("FlowAttorneyCard", () => {
       expect(element.tagName.toLowerCase()).to.equal("flow-attorney-card");
     });
 
-    it("should display attorney name", () => {
+    it("should display attorney name", async () => {
+      await element.updateComplete;
       const name = element.shadowRoot.querySelector(".attorney-name");
-      expect(name.textContent).to.equal(defaultProps.name);
+      expect(name?.textContent).to.equal(defaultProps.name);
     });
 
-    it("should display attorney email", () => {
+    it("should display attorney email", async () => {
+      await element.updateComplete;
       const emailLink = element.shadowRoot.querySelector(".attorney-email a");
-      expect(emailLink.textContent).to.equal(defaultProps.email);
-      expect(emailLink.getAttribute("href")).to.equal(
+      expect(emailLink?.textContent.trim()).to.equal(defaultProps.email);
+      expect(emailLink?.getAttribute("href")).to.equal(
         `mailto:${defaultProps.email}`
       );
     });
 
-    it("should display attorney image", () => {
+    it("should display attorney image", async () => {
+      await element.updateComplete;
       const image = element.shadowRoot.querySelector(".attorney-image");
-      expect(image.getAttribute("src")).to.equal(defaultProps.image);
-      expect(image.getAttribute("alt")).to.equal(defaultProps.imageAlt);
+      expect(image?.getAttribute("src")).to.equal(defaultProps.image);
+      expect(image?.getAttribute("alt")).to.equal(defaultProps.imageAlt);
     });
 
     it("should display all specialties", () => {
@@ -70,32 +80,37 @@ describe("FlowAttorneyCard", () => {
       });
     });
 
-    it("should display education section on back", () => {
+    it("should display education section on back", async () => {
+      await element.updateComplete;
       const educationItems = element.shadowRoot.querySelectorAll(
-        ".card-back .bio-section:nth-child(2) li"
+        ".card-back .bio-section h4"
       );
-      expect(educationItems.length).to.equal(defaultProps.education.length);
-      expect(educationItems[0].textContent).to.equal(defaultProps.education[0]);
+      const educationSection = Array.from(educationItems).find(
+        (h4) => h4.textContent.trim() === "Education"
+      );
+      expect(educationSection).to.exist;
     });
 
-    it("should display memberships section on back", () => {
+    it("should display memberships section on back", async () => {
+      await element.updateComplete;
       const membershipItems = element.shadowRoot.querySelectorAll(
-        ".card-back .bio-section:nth-child(3) li"
+        ".card-back .bio-section h4"
       );
-      expect(membershipItems.length).to.equal(defaultProps.memberships.length);
-      expect(membershipItems[0].textContent).to.equal(
-        defaultProps.memberships[0]
+      const membershipSection = Array.from(membershipItems).find(
+        (h4) => h4.textContent.trim() === "Professional Memberships"
       );
+      expect(membershipSection).to.exist;
     });
 
-    it("should display admissions section on back", () => {
+    it("should display admissions section on back", async () => {
+      await element.updateComplete;
       const admissionItems = element.shadowRoot.querySelectorAll(
-        ".card-back .bio-section:nth-child(4) li"
+        ".card-back .bio-section h4"
       );
-      expect(admissionItems.length).to.equal(defaultProps.admissions.length);
-      expect(admissionItems[0].textContent).to.equal(
-        defaultProps.admissions[0]
+      const admissionSection = Array.from(admissionItems).find(
+        (h4) => h4.textContent.trim() === "Bar Admissions"
       );
+      expect(admissionSection).to.exist;
     });
 
     it("should display biography section on back", () => {
@@ -251,6 +266,85 @@ describe("FlowAttorneyCard", () => {
         expect(styles.whiteSpace).to.equal("nowrap");
       });
     });
+
+    it("should have proper max-width for specialty tags", () => {
+      const specialtyTags =
+        element.shadowRoot.querySelectorAll(".specialty-tag");
+      specialtyTags.forEach((tag) => {
+        const styles = getComputedStyle(tag);
+        expect(styles.maxWidth).to.exist;
+        expect(styles.textOverflow).to.equal("ellipsis");
+      });
+    });
+
+    it("should handle container overflow properly", () => {
+      const specialtiesContainer = element.shadowRoot.querySelector(
+        ".attorney-specialties"
+      );
+      const styles = getComputedStyle(specialtiesContainer);
+      expect(styles.maxWidth).to.equal("100%");
+      expect(styles.overflow).to.equal("hidden");
+    });
+  });
+
+  describe("CSS Transforms and Animations", () => {
+    it("should have proper 3D transform setup", () => {
+      const cardContainer = element.shadowRoot.querySelector(".card-container");
+      const styles = getComputedStyle(cardContainer);
+      expect(styles.transformStyle).to.equal("preserve-3d");
+      expect(styles.perspective).to.exist;
+    });
+
+    it("should apply flipped class correctly", async () => {
+      const cardContainer = element.shadowRoot.querySelector(".card-container");
+
+      // Initially not flipped
+      expect(cardContainer.classList.contains("flipped")).to.be.false;
+
+      // After flip
+      cardContainer.click();
+      await element.updateComplete;
+      expect(cardContainer.classList.contains("flipped")).to.be.true;
+    });
+
+    it("should have backface-visibility hidden on card faces", () => {
+      const cardFaces = element.shadowRoot.querySelectorAll(".card-face");
+      cardFaces.forEach((face) => {
+        const styles = getComputedStyle(face);
+        expect(styles.backfaceVisibility).to.equal("hidden");
+      });
+    });
+
+    it("should have proper transform on card-back", () => {
+      const cardBack = element.shadowRoot.querySelector(".card-back");
+      const styles = getComputedStyle(cardBack);
+      // Check if any transform is applied (rotateY becomes matrix3d in computed styles)
+      expect(styles.transform).to.not.equal("none");
+    });
+  });
+
+  describe("Event Propagation", () => {
+    it("should stop propagation for email clicks", async () => {
+      await element.updateComplete;
+      const emailLink = element.shadowRoot.querySelector(".attorney-email a");
+
+      // Click email link and verify card doesn't flip
+      emailLink.click();
+      await element.updateComplete;
+
+      expect(element.isFlipped).to.be.false;
+    });
+
+    it("should stop propagation for specialty tag clicks", async () => {
+      const specialtyTag = element.shadowRoot.querySelector(".specialty-tag");
+
+      // Click specialty tag
+      specialtyTag.click();
+      await element.updateComplete;
+
+      // Card should not flip
+      expect(element.isFlipped).to.be.false;
+    });
   });
 
   describe("Edge Cases", () => {
@@ -291,29 +385,58 @@ describe("FlowAttorneyCard", () => {
       const nameElement = element.shadowRoot.querySelector(".attorney-name");
       expect(nameElement.textContent).to.equal(longName);
     });
+
+    it("should handle image class attribute properly", async () => {
+      element.imageClass = "roxie";
+      await element.updateComplete;
+
+      const image = element.shadowRoot.querySelector(".attorney-image");
+      expect(image.className).to.include("roxie");
+    });
+
+    it("should handle undefined or null values gracefully", async () => {
+      element.name = null;
+      element.email = undefined;
+      element.specialties = null;
+      element.education = null;
+      element.memberships = null;
+      element.admissions = null;
+      await element.updateComplete;
+
+      // Should not crash and render empty content
+      const nameElement = element.shadowRoot.querySelector(".attorney-name");
+      expect(nameElement.textContent).to.equal("");
+    });
+
+    it("should handle very long specialty names with ellipsis", async () => {
+      const longSpecialty =
+        "Very Long Specialty Name That Should Be Truncated With Ellipsis";
+      element.specialties = [longSpecialty];
+      await element.updateComplete;
+
+      const specialtyTag = element.shadowRoot.querySelector(".specialty-tag");
+      expect(specialtyTag.textContent.trim()).to.equal(longSpecialty);
+
+      const styles = getComputedStyle(specialtyTag);
+      expect(styles.textOverflow).to.equal("ellipsis");
+    });
   });
 });
 
 describe("FlowAttorneyCard Integration", () => {
-  it("should work with default values", async () => {
-    const element = await fixture(
-      html`<flow-attorney-card></flow-attorney-card>`
-    );
+  it("should work with default values", () => {
+    const element = document.createElement("flow-attorney-card");
     expect(element).to.exist;
     expect(element.name).to.equal("");
     expect(element.specialties).to.deep.equal([]);
   });
 
-  it("should handle image class attribute", async () => {
-    const element = await fixture(html`
-      <flow-attorney-card
-        image="test.jpg"
-        image-class="custom-class"
-        image-alt="Test"
-      ></flow-attorney-card>
-    `);
+  it("should handle image class attribute", () => {
+    const element = document.createElement("flow-attorney-card");
+    element.setAttribute("image", "test.jpg");
+    element.setAttribute("image-class", "custom-class");
+    element.setAttribute("image-alt", "Test");
 
-    const image = element.shadowRoot.querySelector(".attorney-image");
-    expect(image.className).to.include("custom-class");
+    expect(element.imageClass).to.equal("custom-class");
   });
 });

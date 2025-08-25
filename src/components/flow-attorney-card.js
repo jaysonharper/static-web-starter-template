@@ -54,7 +54,6 @@ export class FlowAttorneyCard extends LitElement {
     }
 
     .card-face:hover {
-      transform: translateY(-4px);
       box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
       border-color: var(--github-accent-primary, #2563eb);
     }
@@ -379,7 +378,7 @@ export class FlowAttorneyCard extends LitElement {
           </div>
 
           <div class="attorney-specialties">
-            ${this.specialties.map(
+            ${this.specialties?.map(
               (specialty) => html`
                 <span
                   class="specialty-tag"
@@ -389,7 +388,7 @@ export class FlowAttorneyCard extends LitElement {
                   ${specialty}
                 </span>
               `
-            )}
+            ) || ""}
           </div>
         </div>
 
@@ -406,7 +405,7 @@ export class FlowAttorneyCard extends LitElement {
             <h3>${this.name}</h3>
           </div>
 
-          ${this.education.length > 0
+          ${this.education?.length > 0
             ? html`
                 <div class="bio-section">
                   <h4>Education</h4>
@@ -416,7 +415,7 @@ export class FlowAttorneyCard extends LitElement {
                 </div>
               `
             : ""}
-          ${this.memberships.length > 0
+          ${this.memberships?.length > 0
             ? html`
                 <div class="bio-section">
                   <h4>Professional Memberships</h4>
@@ -426,7 +425,7 @@ export class FlowAttorneyCard extends LitElement {
                 </div>
               `
             : ""}
-          ${this.admissions.length > 0
+          ${this.admissions?.length > 0
             ? html`
                 <div class="bio-section">
                   <h4>Bar Admissions</h4>

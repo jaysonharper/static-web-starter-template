@@ -99,11 +99,39 @@ function setupAttorneySpecialtyScrolling() {
     const specialtyTag = e.target.closest(".specialty-tag[data-service]");
     if (specialtyTag) {
       e.preventDefault();
+      e.stopPropagation(); // Prevent other click handlers from interfering
+
       const serviceId = specialtyTag.getAttribute("data-service");
       const targetElement = document.getElementById(serviceId);
 
+      console.log(`Specialty tag clicked: ${serviceId}`);
+      console.log("Target element found:", targetElement);
+
       if (targetElement) {
-        const offsetTop = targetElement.offsetTop - 100; // Account for fixed navbar and extra padding
+        // Get the current scroll position and target position
+        const currentScrollY = window.scrollY;
+        const targetRect = targetElement.getBoundingClientRect();
+        const absoluteTop = targetRect.top + currentScrollY;
+
+        // Calculate navbar height and responsive offset
+        const navbar =
+          document.querySelector("flow-navbar") ||
+          document.querySelector("nav") ||
+          document.querySelector("header");
+        let navbarHeight = 80; // Default fallback
+
+        if (navbar) {
+          const navbarRect = navbar.getBoundingClientRect();
+          navbarHeight = navbarRect.height;
+        }
+
+        // Add extra padding for larger screens to ensure top border is visible
+        const extraPadding = window.innerWidth >= 768 ? 40 : 20; // More padding on tablet/desktop
+        const offsetTop = absoluteTop - navbarHeight - extraPadding;
+
+        console.log(
+          `Current scroll: ${currentScrollY}, Target absolute top: ${absoluteTop}, Navbar height: ${navbarHeight}, Extra padding: ${extraPadding}, Final offset: ${offsetTop}`
+        );
 
         // Add visual feedback
         specialtyTag.style.transform = "scale(0.95)";
@@ -124,6 +152,8 @@ function setupAttorneySpecialtyScrolling() {
         }, 2000);
 
         console.log(`Scrolled to service: ${serviceId}`);
+      } else {
+        console.error(`Target element not found for service: ${serviceId}`);
       }
     }
   });

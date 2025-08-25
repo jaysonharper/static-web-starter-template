@@ -18,32 +18,60 @@
     border-color: var(--github-accent-primary);
   }
 
-  .attorney-placeholder {
-    @apply w-24 h-24 rounded-full mx-auto mb-4 object-cover;
+  .attorney-image {
+    @apply w-36 h-36 rounded-full mx-auto mb-4 object-cover;
     border: 3px solid #e5e7eb;
     transition: all 0.3s ease;
     display: block;
   }
 
-  .attorney-placeholder:hover {
+  /* Specific positioning adjustments for individual attorneys */
+  .attorney-image.roxie {
+    object-position: center 0%; /* Moves the image down - face will be positioned lower in the circle */
+  }
+
+  /* Examples for horizontal positioning: */
+  /* 
+  .attorney-image.move-left {
+    object-position: 30% center; // Moves image left (shows right side of photo)
+  }
+  
+  .attorney-image.move-right {
+    object-position: 70% center; // Moves image right (shows left side of photo)
+  }
+  
+  .attorney-image.far-left {
+    object-position: 10% center; // Moves image far left
+  }
+  
+  .attorney-image.far-right {
+    object-position: 90% center; // Moves image far right
+  }
+  
+  .attorney-image.combined {
+    object-position: 30% 70%; // Moves left AND down
+  }
+  */
+
+  .attorney-image:hover {
     transform: scale(1.05);
     border-color: var(--github-accent-primary);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   }
 
   .attorney-item h3 {
-    @apply text-xl font-bold mb-3;
+    @apply text-xl font-bold;
     color: var(--github-bg-primary);
     line-height: 1.3;
   }
 
   /* Attorney Contact Information */
   .attorney-contact {
-    @apply mt-4 space-y-3;
+    @apply space-y-3;
   }
 
   .attorney-email {
-    @apply mb-3;
+    @apply mb-5;
   }
 
   .attorney-email a {
@@ -97,8 +125,8 @@
       @apply p-4;
     }
 
-    .attorney-placeholder {
-      @apply w-20 h-20;
+    .attorney-image {
+      @apply w-36 h-36;
     }
 
     .attorney-item h3 {

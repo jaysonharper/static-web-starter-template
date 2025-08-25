@@ -389,116 +389,21 @@
               every client.
             </p>
             <div class="attorney-preview">
-              <div class="attorney-item">
-                <img
-                  src="./src/assets/images/roxie_cat.jpeg"
-                  alt="Roxie Harper Profile"
-                  class="attorney-image roxie"
-                  loading="lazy"
-                />
-                <h3>Roxie Harper</h3>
-                <div class="attorney-contact">
-                  <p class="attorney-email">
-                    <a
-                      href="mailto:roxie@harpercats.law"
-                      class="text-blue-600 hover:text-blue-800 transition-colors duration-200"
-                    >
-                      roxie@harpercats.law
-                    </a>
-                  </p>
-                  <div class="attorney-specialties">
-                    <span
-                      class="specialty-tag"
-                      data-service="service-corporate-law"
-                      >Corporate Law</span
-                    >
-                    <span
-                      class="specialty-tag"
-                      data-service="service-personal-injury"
-                      >Personal Injury</span
-                    >
-                    <span
-                      class="specialty-tag"
-                      data-service="service-family-law"
-                      >Family Law</span
-                    >
-                    <span
-                      class="specialty-tag"
-                      data-service="service-estate-plans"
-                      >Estate Plans</span
-                    >
-                    <span
-                      class="specialty-tag"
-                      data-service="service-guardianships"
-                      >Guardianships</span
-                    >
-                    <span
-                      class="specialty-tag"
-                      data-service="service-litigation"
-                      >Litigation</span
-                    >
-                    <span
-                      class="specialty-tag"
-                      data-service="service-collections"
-                      >Collections</span
-                    >
-                  </div>
-                </div>
-              </div>
-              <div class="attorney-item">
-                <img
-                  src="./src/assets/images/shadow_cat.jpeg"
-                  alt="Shadow Harper Profile"
-                  class="attorney-image shadow"
-                  loading="lazy"
-                />
-                <h3>Shadow Harper</h3>
-                <div class="attorney-contact">
-                  <p class="attorney-email">
-                    <a
-                      href="mailto:shadow@harpercats.law"
-                      class="text-blue-600 hover:text-blue-800 transition-colors duration-200"
-                    >
-                      shadow@harpercats.law
-                    </a>
-                  </p>
-                  <div class="attorney-specialties">
-                    <span class="specialty-tag" data-service="service-elder-law"
-                      >Elder Law</span
-                    >
-                    <span
-                      class="specialty-tag"
-                      data-service="service-business-law"
-                      >Business Law</span
-                    >
-                    <span
-                      class="specialty-tag"
-                      data-service="service-real-estate"
-                      >Real Estate</span
-                    >
-                    <span
-                      class="specialty-tag"
-                      data-service="service-conservatorships"
-                      >Conservatorships</span
-                    >
-                    <span
-                      class="specialty-tag"
-                      data-service="service-guardianships"
-                      >Guardianships</span
-                    >
-                    <span
-                      class="specialty-tag"
-                      data-service="service-litigation"
-                      >Litigation</span
-                    >
-                    <span
-                      class="specialty-tag"
-                      data-service="service-collections"
-                      >Collections</span
-                    >
-                  </div>
-                </div>
-              </div>
+              <flow-attorney-card
+                name="Roxie Harper"
+                email="roxie@harpercats.law"
+                image="./src/assets/images/roxie_cat.jpeg"
+                image-alt="Roxie Harper Profile"
+                image-class="roxie"
+              ></flow-attorney-card>
+
+              <flow-attorney-card
+                name="Shadow Harper"
+                email="shadow@harpercats.law"
+                image="./src/assets/images/shadow_cat.jpeg"
+                image-alt="Shadow Harper Profile"
+                image-class="shadow"
+              ></flow-attorney-card>
             </div>
           </div>
         </div>

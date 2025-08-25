@@ -1,155 +1,39 @@
 @layer components {
-  /* Attorney Preview */
+  /* Attorney Preview - Container for web components */
   .attorney-preview {
     @apply grid md:grid-cols-2 gap-8;
+    /* Remove any default padding/margin that might interfere */
+    padding: 0;
+    margin: 0;
   }
 
-  .attorney-item {
-    @apply text-center p-6 rounded-xl;
-    background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
-    border: 1px solid #e5e7eb;
-    transition: all 0.3s ease;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-  }
-
-  .attorney-item:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-    border-color: var(--github-accent-primary);
-  }
-
-  .attorney-image {
-    @apply w-36 h-36 rounded-full mx-auto mb-4 object-cover;
-    border: 3px solid #e5e7eb;
-    transition: all 0.3s ease;
+  /* Ensure web components fit properly in the grid */
+  .attorney-preview flow-attorney-card {
     display: block;
-  }
-
-  /* Specific positioning adjustments for individual attorneys */
-  .attorney-image.roxie {
-    object-position: center 0%; /* Moves the image down - face will be positioned lower in the circle */
-  }
-
-  /* Examples for horizontal positioning: */
-  /* 
-  .attorney-image.move-left {
-    object-position: 30% center; // Moves image left (shows right side of photo)
-  }
-  
-  .attorney-image.move-right {
-    object-position: 70% center; // Moves image right (shows left side of photo)
-  }
-  
-  .attorney-image.far-left {
-    object-position: 10% center; // Moves image far left
-  }
-  
-  .attorney-image.far-right {
-    object-position: 90% center; // Moves image far right
-  }
-  
-  .attorney-image.combined {
-    object-position: 30% 70%; // Moves left AND down
-  }
-  */
-
-  .attorney-image:hover {
-    transform: scale(1.05);
-    border-color: var(--github-accent-primary);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  }
-
-  .attorney-item h3 {
-    @apply text-xl font-bold;
-    color: var(--github-bg-primary);
-    line-height: 1.3;
-  }
-
-  /* Attorney Contact Information */
-  .attorney-contact {
-    @apply space-y-3;
-  }
-
-  .attorney-email {
-    @apply mb-5;
-  }
-
-  .attorney-email a {
-    @apply text-blue-600 hover:text-blue-800 font-medium text-sm;
-    transition: color 0.2s ease;
-    text-decoration: none;
-  }
-
-  .attorney-email a:hover {
-    text-decoration: underline;
-  }
-
-  /* Attorney Specialties */
-  .attorney-specialties {
-    @apply flex flex-wrap justify-center gap-2 mt-3;
-  }
-
-  .specialty-tag {
-    @apply inline-flex items-center justify-center px-3 py-1 rounded-full text-xs font-medium;
-    background: linear-gradient(
-      135deg,
-      var(--github-accent-primary) 0%,
-      var(--github-accent-secondary) 100%
-    );
-    color: white;
-    transition: all 0.2s ease;
-    border: 1px solid transparent;
-    cursor: pointer;
-    user-select: none;
-    width: 140px;
-    text-align: center;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-
-  .specialty-tag:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 2px 8px rgba(37, 99, 235, 0.3);
-    background: linear-gradient(135deg, #1d4ed8 0%, #6d28d9 100%);
-  }
-
-  .specialty-tag:active {
-    transform: translateY(0);
-    transition: transform 0.1s ease;
+    width: 100%;
+    height: auto;
+    min-height: 450px;
   }
 
   /* Responsive adjustments */
   @media (max-width: 767px) {
-    .attorney-item {
-      @apply p-4;
+    .attorney-preview {
+      @apply gap-6;
     }
 
-    .attorney-image {
-      @apply w-36 h-36;
-    }
-
-    .attorney-item h3 {
-      @apply text-lg;
-    }
-
-    .specialty-tag {
-      @apply text-xs px-2 py-1;
-      width: 115px;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
+    .attorney-preview flow-attorney-card {
+      min-height: 400px;
     }
   }
 
   /* Enhanced mobile layout */
   @media (max-width: 480px) {
     .attorney-preview {
-      @apply grid-cols-1 gap-6;
+      @apply grid-cols-1 gap-4;
     }
 
-    .attorney-specialties {
-      @apply gap-1;
+    .attorney-preview flow-attorney-card {
+      min-height: 350px;
     }
   }
 }

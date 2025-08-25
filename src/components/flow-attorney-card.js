@@ -12,7 +12,7 @@ export class FlowAttorneyCard extends LitElement {
     memberships: { type: Array },
     admissions: { type: Array },
     biography: { type: String },
-    isFlipped: { type: Boolean, state: true, attribute: "is-flipped" },
+    isFlipped: { type: Boolean, state: true, attribute: false },
   };
 
   static styles = css`

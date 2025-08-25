@@ -155,59 +155,8 @@ function setupAttorneyCards() {
       card.admissions = data.admissions;
       card.biography = data.biography;
 
-      // Add event listeners
-      card.addEventListener("card-flip", (e) => {
-        console.log("Attorney card flipped:", e.detail);
-        trackEvent("attorney_card_flipped", {
-          attorney_name: e.detail.name,
-          is_flipped: e.detail.isFlipped,
-          timestamp: e.detail.timestamp,
-        });
-      });
-
-      card.addEventListener("specialty-click", (e) => {
-        console.log("Specialty clicked from attorney card:", e.detail);
-
-        // Use existing scroll functionality
-        const serviceId = e.detail.serviceId;
-        const targetElement = document.getElementById(serviceId);
-
-        if (targetElement) {
-          const navbar =
-            document.querySelector("flow-navbar") ||
-            document.querySelector("nav") ||
-            document.querySelector("header");
-          let navbarHeight = 80;
-
-          if (navbar) {
-            const navbarRect = navbar.getBoundingClientRect();
-            navbarHeight = navbarRect.height;
-          }
-
-          const extraPadding = window.innerWidth >= 768 ? 40 : 20;
-          const currentScrollY = window.scrollY;
-          const targetRect = targetElement.getBoundingClientRect();
-          const absoluteTop = targetRect.top + currentScrollY;
-          const offsetTop = absoluteTop - navbarHeight - extraPadding;
-
-          window.scrollTo({
-            top: offsetTop,
-            behavior: "smooth",
-          });
-
-          // Add highlight effect
-          targetElement.classList.add("highlight-flash");
-          setTimeout(() => {
-            targetElement.classList.remove("highlight-flash");
-          }, 2000);
-
-          trackEvent("attorney_specialty_navigation", {
-            attorney_name: e.detail.attorneyName,
-            specialty: e.detail.specialty,
-            service_id: serviceId,
-          });
-        }
-      });
+      // Add event listeners using the reusable function
+      setupAttorneyCardListeners(card, data);
     }
   });
 }

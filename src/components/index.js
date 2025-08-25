@@ -4,6 +4,7 @@
 // UI Components (Basic building blocks)
 import "./flow-button.js";
 import "./flow-alert.js";
+import "./flow-attorney-card.js";
 
 // Layout Components (Page structure)
 import "./flow-navbar.js";

@@ -1,28 +1,39 @@
 @layer components {
-  /* Attorney Preview */
+  /* Attorney Preview - Container for web components */
   .attorney-preview {
     @apply grid md:grid-cols-2 gap-8;
+    /* Remove any default padding/margin that might interfere */
+    padding: 0;
+    margin: 0;
   }
 
-  .attorney-item {
-    @apply text-center;
+  /* Ensure web components fit properly in the grid */
+  .attorney-preview flow-attorney-card {
+    display: block;
+    width: 100%;
+    height: auto;
+    min-height: 450px;
   }
 
-  .attorney-placeholder {
-    @apply w-24 h-24 rounded-full mx-auto mb-4;
-    background: linear-gradient(
-      135deg,
-      var(--github-accent-primary) 0%,
-      var(--github-accent-secondary) 100%
-    );
+  /* Responsive adjustments */
+  @media (max-width: 767px) {
+    .attorney-preview {
+      @apply gap-6;
+    }
+
+    .attorney-preview flow-attorney-card {
+      min-height: 400px;
+    }
   }
 
-  .attorney-item h3 {
-    @apply text-xl font-bold mb-2;
-    color: var(--github-bg-primary);
-  }
+  /* Enhanced mobile layout */
+  @media (max-width: 480px) {
+    .attorney-preview {
+      @apply grid-cols-1 gap-4;
+    }
 
-  .attorney-item p {
-    @apply text-gray-600;
+    .attorney-preview flow-attorney-card {
+      min-height: 350px;
+    }
   }
 }

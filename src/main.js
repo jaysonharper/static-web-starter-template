@@ -49,6 +49,9 @@ function initializeApp() {
   // Setup smooth scrolling for navigation links
   setupSmoothScrolling();
 
+  // Setup attorney specialty tag scrolling
+  setupAttorneySpecialtyScrolling();
+
   // Setup component event listeners
   setupComponentEvents();
 
@@ -85,6 +88,42 @@ function setupSmoothScrolling() {
           top: offsetTop,
           behavior: "smooth",
         });
+      }
+    }
+  });
+}
+
+function setupAttorneySpecialtyScrolling() {
+  // Handle clicks on attorney specialty tags
+  document.addEventListener("click", (e) => {
+    const specialtyTag = e.target.closest(".specialty-tag[data-service]");
+    if (specialtyTag) {
+      e.preventDefault();
+      const serviceId = specialtyTag.getAttribute("data-service");
+      const targetElement = document.getElementById(serviceId);
+
+      if (targetElement) {
+        const offsetTop = targetElement.offsetTop - 100; // Account for fixed navbar and extra padding
+
+        // Add visual feedback
+        specialtyTag.style.transform = "scale(0.95)";
+        setTimeout(() => {
+          specialtyTag.style.transform = "";
+        }, 150);
+
+        // Smooth scroll to the service
+        window.scrollTo({
+          top: offsetTop,
+          behavior: "smooth",
+        });
+
+        // Add highlight effect to the target service
+        targetElement.classList.add("highlight-flash");
+        setTimeout(() => {
+          targetElement.classList.remove("highlight-flash");
+        }, 2000);
+
+        console.log(`Scrolled to service: ${serviceId}`);
       }
     }
   });

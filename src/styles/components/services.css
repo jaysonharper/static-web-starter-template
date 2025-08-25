@@ -58,6 +58,34 @@
     border-color: #3b82f6;
   }
 
+  /* Flash highlight effect for clicked specialty tags */
+  .highlight-item.highlight-flash {
+    animation: highlightFlash 2s ease-out;
+  }
+
+  @keyframes highlightFlash {
+    0% {
+      background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+      transform: translateY(-8px) scale(1.02);
+      box-shadow: 0 15px 35px rgba(59, 130, 246, 0.3);
+      border-color: #1d4ed8;
+    }
+    25% {
+      background: linear-gradient(135deg, #60a5fa 0%, #3b82f6 100%);
+      transform: translateY(-6px) scale(1.01);
+    }
+    50% {
+      background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+      transform: translateY(-2px);
+    }
+    100% {
+      background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+      transform: translateY(-4px);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+      border-color: #3b82f6;
+    }
+  }
+
   .highlight-content {
     @apply w-full h-full flex flex-col;
     position: relative;

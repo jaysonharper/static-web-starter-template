@@ -106,7 +106,7 @@ out
 
 # Gatsby files
 .cache/
-public
+# public - Commented out because we need public/images/ for GitHub Pages
 
 # Storybook build outputs
 storybook-static

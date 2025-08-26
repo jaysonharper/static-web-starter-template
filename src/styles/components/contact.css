@@ -12,4 +12,15 @@
   .contact-item p {
     @apply text-gray-700 leading-relaxed;
   }
+
+  .contact-item a {
+    @apply text-blue-600 underline;
+  }
+
+  .contact-item a:hover,
+  .contact-item a:focus {
+    @apply text-blue-800;
+    outline: none;
+    text-decoration: underline;
+  }
 }

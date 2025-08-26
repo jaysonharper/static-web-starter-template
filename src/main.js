@@ -167,7 +167,7 @@ function setupAttorneyCards() {
   });
 }
 
-function setupAttorneyCardListeners(card, data) {
+function setupAttorneyCardListeners(card) {
   const attorneyName = card.getAttribute("name");
 
   // Listen for card flip events

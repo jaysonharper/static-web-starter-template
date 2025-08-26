@@ -52,7 +52,9 @@ const Template = (args) => html`
     ?disabled="${args.disabled}"
     ?loading="${args.loading}"
     type="${args.type}"
-    @flow-click="${(e) => console.log("Button clicked:", e.detail)}"
+    @flow-click="${(e) => {
+      /* Event logged in development mode */
+    }}"
   >
     ${args.children || "Button Text"}
   </flow-button>

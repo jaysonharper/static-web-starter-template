@@ -165,22 +165,24 @@ export const InteractiveDemo = () => {
   const roxieCard = Template(RoxieHarper.args);
   const shadowCard = Template(ShadowHarper.args);
 
-  // Add event listeners for demonstration
-  roxieCard.addEventListener("card-flip", (e) => {
-    console.log("Roxie card flipped:", e.detail);
-  });
+  // Add event listeners for demonstration (development only)
+  if (typeof import.meta !== "undefined" && import.meta.env?.DEV) {
+    roxieCard.addEventListener("card-flip", (e) => {
+      console.log("Roxie card flipped:", e.detail);
+    });
 
-  shadowCard.addEventListener("card-flip", (e) => {
-    console.log("Shadow card flipped:", e.detail);
-  });
+    shadowCard.addEventListener("card-flip", (e) => {
+      console.log("Shadow card flipped:", e.detail);
+    });
 
-  roxieCard.addEventListener("specialty-click", (e) => {
-    console.log("Specialty clicked on Roxie card:", e.detail);
-  });
+    roxieCard.addEventListener("specialty-click", (e) => {
+      console.log("Specialty clicked on Roxie card:", e.detail);
+    });
 
-  shadowCard.addEventListener("specialty-click", (e) => {
-    console.log("Specialty clicked on Shadow card:", e.detail);
-  });
+    shadowCard.addEventListener("specialty-click", (e) => {
+      console.log("Specialty clicked on Shadow card:", e.detail);
+    });
+  }
 
   container.appendChild(roxieCard);
   container.appendChild(shadowCard);

@@ -292,8 +292,8 @@ export class FlowCallButton extends LitElement {
       })
     );
 
-    // Track the call attempt
-    if (typeof window !== "undefined" && window.console) {
+    // Track the call attempt (development only)
+    if (typeof import.meta !== "undefined" && import.meta.env?.DEV) {
       console.log("📞 Call initiated:", this.phoneNumber);
     }
   }

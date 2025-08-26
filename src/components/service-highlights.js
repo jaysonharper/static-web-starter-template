@@ -115,9 +115,6 @@ class ServiceHighlights {
 
   trackInteraction(action, serviceName) {
     // Analytics tracking - replace with your preferred analytics solution
-    if (typeof window !== "undefined" && window.console) {
-      console.log(`Service Interaction: ${action} - ${serviceName}`);
-    }
 
     // Example: Google Analytics 4
     if (typeof gtag !== "undefined") {

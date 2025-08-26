@@ -67,7 +67,7 @@ export const RoxieHarper = Template.bind({});
 RoxieHarper.args = {
   name: "Roxie Harper",
   email: "roxie@harpercats.law",
-  image: "./src/assets/images/roxie_cat.jpeg",
+  image: "./images/roxie_cat.jpeg",
   imageAlt: "Roxie Harper Profile",
   imageClass: "roxie",
   specialties: [
@@ -104,7 +104,7 @@ export const ShadowHarper = Template.bind({});
 ShadowHarper.args = {
   name: "Shadow Harper",
   email: "shadow@harpercats.law",
-  image: "./src/assets/images/shadow_cat.jpeg",
+  image: "./images/shadow_cat.jpeg",
   imageAlt: "Shadow Harper Profile",
   imageClass: "shadow",
   specialties: [

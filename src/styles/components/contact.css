@@ -1,7 +1,7 @@
 @layer components {
   /* Contact Info */
   .contact-info {
-    @apply grid md:grid-cols-2 gap-8;
+    @apply grid md:grid-cols-2 gap-8 text-center;
   }
 
   .contact-item h3 {

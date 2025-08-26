@@ -33,4 +33,6 @@ export { FlowFloatingCallButton } from "./flow-floating-call-button.js";
 // Icons & Graphics
 export { FlowScalesIcon } from "./flow-scales-icon.js";
 
-console.log("🎨 Flow Components loaded successfully");
+if (typeof import.meta !== "undefined" && import.meta.env?.DEV) {
+  console.log("🎨 Flow Components loaded successfully");
+}

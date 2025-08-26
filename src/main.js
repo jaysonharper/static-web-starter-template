@@ -1,27 +1,29 @@
 // Import our component library
 import "./components/index.js";
 
-// Debug browser session differences
-console.log("Browser info:", {
-  userAgent: navigator.userAgent,
-  cookieEnabled: navigator.cookieEnabled,
-  onLine: navigator.onLine,
-  language: navigator.language,
-  viewport: `${window.innerWidth}x${window.innerHeight}`,
-  devicePixelRatio: window.devicePixelRatio,
-  hasLocalStorage: typeof Storage !== "undefined",
-  timestamp: new Date().toISOString(),
-});
+// Debug browser session differences (development only)
+if (typeof import.meta !== "undefined" && import.meta.env?.DEV) {
+  console.log("Browser info:", {
+    userAgent: navigator.userAgent,
+    cookieEnabled: navigator.cookieEnabled,
+    onLine: navigator.onLine,
+    language: navigator.language,
+    viewport: `${window.innerWidth}x${window.innerHeight}`,
+    devicePixelRatio: window.devicePixelRatio,
+    hasLocalStorage: typeof Storage !== "undefined",
+    timestamp: new Date().toISOString(),
+  });
 
-// Check for browser extensions that might affect rendering
-if (window.chrome && window.chrome.runtime) {
-  console.log(
-    "Chrome extensions detected - this may affect rendering in logged-in sessions"
-  );
+  // Check for browser extensions that might affect rendering
+  if (window.chrome && window.chrome.runtime) {
+    console.log(
+      "Chrome extensions detected - this may affect rendering in logged-in sessions"
+    );
+  }
 }
 
 // Development utilities
-if (import.meta.env.DEV) {
+if (typeof import.meta !== "undefined" && import.meta.env?.DEV) {
   // Add global console clearing function for development
   window.clearAll = () => {
     console.clear();
@@ -44,7 +46,9 @@ if (typeof document !== "undefined") {
 }
 
 function initializeApp() {
-  console.log("Initializing app at:", new Date().toISOString());
+  if (typeof import.meta !== "undefined" && import.meta.env?.DEV) {
+    console.log("Initializing app at:", new Date().toISOString());
+  }
 
   // Setup attorney cards with data
   setupAttorneyCards();
@@ -71,7 +75,9 @@ function initializeApp() {
       serviceHighlights.style.display = "none";
       serviceHighlights.offsetHeight; // Force reflow
       serviceHighlights.style.display = "grid";
-      console.log("Service highlights layout refreshed");
+      if (typeof import.meta !== "undefined" && import.meta.env?.DEV) {
+        console.log("Service highlights layout refreshed");
+      }
     }
   }, 100);
 }
@@ -161,6 +167,32 @@ function setupAttorneyCards() {
   });
 }
 
+function setupAttorneyCardListeners(card, data) {
+  const attorneyName = card.getAttribute("name");
+
+  // Listen for card flip events
+  card.addEventListener("card-flip", (e) => {
+    trackEvent("attorney_card_flipped", {
+      attorney_name: e.detail.name || attorneyName,
+      is_flipped: e.detail.isFlipped,
+      timestamp: e.detail.timestamp || new Date().toISOString(),
+      source: "attorney_card_flip",
+    });
+  });
+
+  // Listen for specialty tag clicks from within the card
+  card.addEventListener("specialty-click", (e) => {
+    const { serviceId, specialty, attorneyName: eventAttorneyName } = e.detail;
+
+    // Delegate to the existing scroll utility function
+    scrollToService(serviceId, {
+      source: "attorney_card_specialty",
+      attorneyName: eventAttorneyName || attorneyName,
+      specialty: specialty,
+    });
+  });
+}
+
 function setupSmoothScrolling() {
   // Handle all anchor links for smooth scrolling
   document.addEventListener("click", (e) => {
@@ -190,68 +222,85 @@ function setupAttorneySpecialtyScrolling() {
       e.stopPropagation(); // Prevent other click handlers from interfering
 
       const serviceId = specialtyTag.getAttribute("data-service");
-      const targetElement = document.getElementById(serviceId);
 
-      console.log(`Specialty tag clicked: ${serviceId}`);
-      console.log("Target element found:", targetElement);
+      // Add visual feedback
+      specialtyTag.style.transform = "scale(0.95)";
+      setTimeout(() => {
+        specialtyTag.style.transform = "";
+      }, 150);
 
-      if (targetElement) {
-        // Get the current scroll position and target position
-        const currentScrollY = window.scrollY;
-        const targetRect = targetElement.getBoundingClientRect();
-        const absoluteTop = targetRect.top + currentScrollY;
-
-        // Calculate navbar height and responsive offset
-        const navbar =
-          document.querySelector("flow-navbar") ||
-          document.querySelector("nav") ||
-          document.querySelector("header");
-        let navbarHeight = 80; // Default fallback
-
-        if (navbar) {
-          const navbarRect = navbar.getBoundingClientRect();
-          navbarHeight = navbarRect.height;
-        }
-
-        // Add extra padding for larger screens to ensure top border is visible
-        const extraPadding = window.innerWidth >= 768 ? 40 : 20; // More padding on tablet/desktop
-        const offsetTop = absoluteTop - navbarHeight - extraPadding;
-
-        console.log(
-          `Current scroll: ${currentScrollY}, Target absolute top: ${absoluteTop}, Navbar height: ${navbarHeight}, Extra padding: ${extraPadding}, Final offset: ${offsetTop}`
-        );
-
-        // Add visual feedback
-        specialtyTag.style.transform = "scale(0.95)";
-        setTimeout(() => {
-          specialtyTag.style.transform = "";
-        }, 150);
-
-        // Smooth scroll to the service
-        window.scrollTo({
-          top: offsetTop,
-          behavior: "smooth",
-        });
-
-        // Add highlight effect to the target service
-        targetElement.classList.add("highlight-flash");
-        setTimeout(() => {
-          targetElement.classList.remove("highlight-flash");
-        }, 2000);
-
-        console.log(`Scrolled to service: ${serviceId}`);
-      } else {
-        console.error(`Target element not found for service: ${serviceId}`);
-      }
+      scrollToService(serviceId, {
+        source: "specialty_tag_direct",
+        element: specialtyTag,
+      });
     }
   });
+}
+
+// Utility function for scrolling to services with consistent behavior
+function scrollToService(serviceId, options = {}) {
+  const { source = "unknown", attorneyName, specialty, element } = options;
+
+  const targetElement = document.getElementById(serviceId);
+
+  if (!targetElement) {
+    console.error(`Target element not found for service: ${serviceId}`);
+    return false;
+  }
+
+  // Calculate scroll position
+  const currentScrollY = window.scrollY;
+  const targetRect = targetElement.getBoundingClientRect();
+  const absoluteTop = targetRect.top + currentScrollY;
+
+  // Calculate navbar height and responsive offset
+  const navbar =
+    document.querySelector("flow-navbar") ||
+    document.querySelector("nav") ||
+    document.querySelector("header");
+
+  let navbarHeight = 80; // Default fallback
+  if (navbar) {
+    const navbarRect = navbar.getBoundingClientRect();
+    navbarHeight = navbarRect.height;
+  }
+
+  // Add extra padding for larger screens to ensure top border is visible
+  const extraPadding = window.innerWidth >= 768 ? 40 : 20;
+  const offsetTop = absoluteTop - navbarHeight - extraPadding;
+
+  // Smooth scroll to the service
+  window.scrollTo({
+    top: offsetTop,
+    behavior: "smooth",
+  });
+
+  // Add highlight effect to the target service
+  targetElement.classList.add("highlight-flash");
+  setTimeout(() => {
+    targetElement.classList.remove("highlight-flash");
+  }, 2000);
+
+  // Track the scroll event
+  const trackingData = {
+    service_id: serviceId,
+    source: source,
+    scroll_position: currentScrollY,
+    target_position: offsetTop,
+    timestamp: new Date().toISOString(),
+  };
+
+  if (attorneyName) trackingData.attorney_name = attorneyName;
+  if (specialty) trackingData.specialty = specialty;
+
+  trackEvent("service_navigation", trackingData);
+
+  return true;
 }
 
 function setupComponentEvents() {
   // Listen for custom flow-button events
   document.addEventListener("flow-click", (e) => {
-    console.log("Flow button clicked:", e.detail);
-
     // Handle different button actions
     const target = e.detail.originalEvent.target.closest("a");
     if (target && target.href.startsWith("tel:")) {
@@ -264,8 +313,6 @@ function setupComponentEvents() {
 
   // Listen for custom flow-call-button events
   document.addEventListener("flow-call-click", (e) => {
-    console.log("Call button clicked:", e.detail);
-
     const { phoneNumber, variant, size } = e.detail;
 
     // Track call attempt with additional context
@@ -281,13 +328,11 @@ function setupComponentEvents() {
 
   // Listen for alert events
   document.addEventListener("flow-alert-closed", (e) => {
-    console.log("Alert closed:", e.detail);
+    // Note: Could track alert closure analytics here
   });
 
   // Listen for scroll-to-top events
   document.addEventListener("flow-scroll-top-click", (e) => {
-    console.log("Scroll to top clicked:", e.detail);
-
     // Track scroll to top usage
     trackEvent("scroll_to_top_used", {
       timestamp: e.detail.timestamp,
@@ -300,8 +345,6 @@ function setupComponentEvents() {
 
   // Listen for scales icon events
   document.addEventListener("scales-click", (e) => {
-    console.log("Scales of Justice clicked:", e.detail);
-
     // Track scales interaction
     trackEvent("scales_icon_clicked", {
       timestamp: e.detail.timestamp,
@@ -312,8 +355,6 @@ function setupComponentEvents() {
 
   // Listen for floating call button events
   document.addEventListener("flow-floating-call-click", (e) => {
-    console.log("Floating call button clicked:", e.detail);
-
     // Track floating call button usage
     trackEvent("floating_call_button_clicked", {
       timestamp: e.detail.timestamp,
@@ -353,7 +394,6 @@ function setupPhoneCallHandling() {
     const link = e.target.closest('a[href^="tel:"]');
     if (link) {
       const phoneNumber = link.href.replace("tel:", "");
-      console.log("Phone call initiated:", phoneNumber);
 
       // Track call attempt (you could send this to analytics)
       trackEvent("phone_call_attempted", {
@@ -377,15 +417,11 @@ function trackEvent(eventName, eventData) {
   // }
 }
 
-// Utility function for other modules
-export function greet(name = "Client") {
-  return `Welcome to Law Offices of Harper & Cats, ${name}!`;
-}
-
-// Export main functions for testing
+// Export main functions for testing and modularity
 export {
   initializeApp,
   setupSmoothScrolling,
   setupComponentEvents,
   trackEvent,
+  scrollToService,
 };

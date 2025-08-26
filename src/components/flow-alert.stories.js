@@ -44,7 +44,9 @@ const Template = (args) => html`
     ?dismissible="${args.dismissible}"
     ?icon="${args.icon}"
     ?visible="${args.visible}"
-    @flow-alert-closed="${(e) => console.log("Alert closed:", e.detail)}"
+    @flow-alert-closed="${(e) => {
+      /* Event logged in development mode */
+    }}"
   >
     ${args.children ||
     html`<strong>Alert Title:</strong> This is the alert message content.`}

@@ -43,7 +43,9 @@ export const Interactive = () => html`
       states. The animation will continue automatically every 5 seconds.
     </p>
     <flow-scales-icon
-      @scales-click="${(e) => console.log("Scales clicked:", e.detail)}"
+      @scales-click="${(e) => {
+        /* Event logged in development mode */
+      }}"
     ></flow-scales-icon>
   </div>
 `;

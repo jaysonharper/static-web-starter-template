@@ -251,19 +251,59 @@ Test files should be placed alongside components with `.test.js` suffix.
 
 ## 🚀 Deployment
 
-### Build for Production
+### GitHub Pages (Automatic Base Path)
+
+This template is configured so that when you click "Use this template" and create a new repository, GitHub Pages deployment works without manual edits—CSS and assets will load correctly under your new repo name.
+
+How it works:
+
+- The Vite config derives the correct `base` path from `VITE_BASE_PATH` or the `GITHUB_REPOSITORY` env var inside the GitHub Actions workflow.
+- The workflow injects `VITE_BASE_PATH=/your-repo-name/` automatically unless the repo is a root user/org site (`username.github.io`).
+- For user/org Pages sites (`*.github.io`), the base is `/`.
+
+User steps after creating a repo from the template:
+
+1. Push to `main` (or just keep the initial commit).
+2. Enable GitHub Pages (Settings → Pages → Source: GitHub Actions). The first workflow run will publish automatically.
+3. Visit: `https://<your-username>.github.io/<your-repo-name>/` (or root if a `*.github.io` repo).
+
+No need to edit `vite.config.js`, scripts, or HTML paths.
+
+### Local Production Build
 
 ```bash
 npm run build
 ```
 
-### Deploy Storybook
+If you need to simulate a different repo name locally:
+
+```bash
+VITE_BASE_PATH=/my-custom-repo/ npm run build
+```
+
+On Windows PowerShell:
+
+```powershell
+$env:VITE_BASE_PATH="/my-custom-repo/"; npm run build
+```
+
+### Optional .env.production
+
+Create `.env.production` only if you want to pin a custom base:
+
+```
+VITE_BASE_PATH=/custom-path/
+```
+
+An example file is provided at `.env.production.example`.
+
+### Deploy Storybook (optional)
 
 ```bash
 npm run build-storybook
 ```
 
-The build outputs to `dist/` and `storybook-static/` respectively.
+Outputs: `dist/` (app) and `storybook-static/` (Storybook).
 
 ## 🤝 Contributing
 

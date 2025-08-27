@@ -9,7 +9,7 @@
     "dev:clean-graceful": "npm run clean:cache && node scripts/dev-server.js",
     "build": "vite build",
     "build:clean": "npm run clean:cache && vite build",
-    "build:pages": "vite build --base=/static-web-starter-template/",
+    "build:prod": "vite build",
     "preview": "vite preview --port 5173",
     "test": "vitest",
     "test:css": "vitest run --config vitest.node.config.js",

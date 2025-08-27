@@ -1,3 +1,6 @@
+// Import global styles (Tailwind + custom) so Vite bundles CSS for production
+import "./styles/main.css";
+
 // Import our component library
 import "./components/index.js";
 

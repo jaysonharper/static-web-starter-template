@@ -42,8 +42,16 @@ jobs:
         run: npm ci
 
       - name: Build for GitHub Pages
+        # Derive VITE_BASE_PATH automatically for non-root Pages sites so cloned template works without edits
         run: |
-          npm run build
+          if [[ "${GITHUB_REPOSITORY##*/}" == *".github.io" ]]; then
+            echo "Building for user/organization root site";
+            npm run build;
+          else
+            export VITE_BASE_PATH="/${GITHUB_REPOSITORY##*/}/";
+            echo "Using dynamic base path: $VITE_BASE_PATH";
+            npm run build;
+          fi
         env:
           NODE_ENV: production
 

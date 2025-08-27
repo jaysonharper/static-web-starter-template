@@ -80,6 +80,10 @@ function initializeApp() {
       }
     }
   }, 100);
+
+  // Demo button toggle behavior (used by unit test main.dom.test.js)
+  // Keeps logic isolated so it doesn't interfere with broader app code
+  setupDemoButtonToggle();
 }
 
 function setupAttorneyCards() {
@@ -425,3 +429,25 @@ export {
   trackEvent,
   scrollToService,
 };
+
+// --- Internal helpers (not exported) ---
+function setupDemoButtonToggle() {
+  const app = document.getElementById("app");
+  const btn = document.getElementById("btn");
+  if (!app || !btn) return; // Safe no-op if elements not present on page
+
+  // Avoid adding multiple listeners if initializeApp runs more than once
+  if (btn.__flowToggleAttached) return;
+  btn.__flowToggleAttached = true;
+
+  btn.addEventListener("click", () => {
+    const isActive = app.classList.toggle("scale-99");
+    if (isActive) {
+      app.classList.add("transition-transform");
+      btn.textContent = "Clicked ✓";
+    } else {
+      app.classList.remove("transition-transform");
+      btn.textContent = "Click me";
+    }
+  });
+}
